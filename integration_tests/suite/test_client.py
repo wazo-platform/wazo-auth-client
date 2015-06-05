@@ -79,7 +79,7 @@ class TestXiVOAuthClient(unittest.TestCase):
 
         assert_that(response, is_(False))
 
-    def test_is_valid_with_a_invalid_token(self):
+    def test_is_valid_with_a_valid_token(self):
         token = self.good_client.token.new('mock')['token']
 
         response = self.good_client.token.is_valid(token)
