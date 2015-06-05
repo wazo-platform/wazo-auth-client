@@ -43,7 +43,6 @@ to run the tests
 
 ```sh
 cd integration_tests
-docker pull xivo/xivo-auth
-docker build -t xivo/xivo-auth-client-tests-data -f Dockerfile-data .
+make test-setup
 nosetests
 ```
