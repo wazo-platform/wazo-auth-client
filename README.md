@@ -1,4 +1,4 @@
-xivo-dird-client
+xivo-auth-client
 ================
 
 A python library to connect to xivo-auth.
