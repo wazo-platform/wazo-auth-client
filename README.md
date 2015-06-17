@@ -1,7 +1,9 @@
 xivo-auth-client
 ================
 
-A python library to connect to xivo-auth.
+A python library to connect to xivo-auth. HTTPS is used by default. Certificates
+are not verified by default. To check if the certificates are valid, use the
+verify_certificate argument when instantiating the client.
 
 Usage:
 
@@ -34,6 +36,16 @@ False
 
 c.backends.list()
 ['xivo_user']
+```
+
+To use a given certificate file
+
+```python
+from xivo_auth_client import Client
+
+c = Client('localhost', username='alice', password='alice', verify_certificate='</path/to/trusted/certificate>')
+
+token_data = c.token.new('xivo_user')
 ```
 
 
