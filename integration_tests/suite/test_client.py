@@ -56,7 +56,7 @@ class TestXiVOAuthClient(unittest.TestCase):
         cls._run_cmd('docker-compose kill')
 
     def setUp(self):
-        self.good_client = Client(HOST, username='foo', password='bar', https=True)
+        self.good_client = Client(HOST, username='foo', password='bar')
 
     def test_new_with_a_successful_login(self):
         token_data = self.good_client.token.new('mock')
@@ -70,7 +70,7 @@ class TestXiVOAuthClient(unittest.TestCase):
         self.assertRaises(HTTPError, self.good_client.token.new, 'unknown')
 
     def test_new_with_wrong_credential(self):
-        bad_client = Client(HOST, username='foo', password='baz', https=True)
+        bad_client = Client(HOST, username='foo', password='baz')
 
         self.assertRaises(HTTPError, bad_client.token.new, 'mock')
 
