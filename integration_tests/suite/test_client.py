@@ -62,7 +62,7 @@ class TestXiVOAuthClient(unittest.TestCase):
     def test_new_with_a_successful_login(self):
         token_data = self.good_client.token.new('mock')
 
-        assert_that(token_data['uuid'], equal_to('a-mocked-uuid'))
+        assert_that(token_data['auth_id'], equal_to('a-mocked-uuid'))
         assert_that(token_data, has_key('token'))
         assert_that(token_data, has_key('issued_at'))
         assert_that(token_data, has_key('expires_at'))
