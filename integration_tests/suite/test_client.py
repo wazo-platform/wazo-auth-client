@@ -25,12 +25,13 @@ from hamcrest import contains_inanyorder
 from hamcrest import equal_to
 from hamcrest import is_
 from hamcrest import has_key
-from requests.exceptions import HTTPError
+from requests.exceptions import HTTPError, SSLError
 
 from xivo_auth_client import Client
 
 logger = logging.getLogger(__name__)
 
+ASSET_ROOT = os.path.join(os.path.dirname(__file__), '..', 'assets')
 HOST = os.getenv('XIVO_AUTH_CLIENT_TEST_HOST', 'localhost')
 
 
@@ -46,7 +47,7 @@ class TestXiVOAuthClient(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        asset_path = os.path.join(os.path.dirname(__file__), '..', 'assets', cls.asset)
+        asset_path = os.path.join(ASSET_ROOT, cls.asset)
         os.chdir(asset_path)
         cls._run_cmd('docker-compose rm --force')
         cls._run_cmd('docker-compose run sync')
@@ -73,6 +74,18 @@ class TestXiVOAuthClient(unittest.TestCase):
         bad_client = Client(HOST, username='foo', password='baz')
 
         self.assertRaises(HTTPError, bad_client.token.new, 'mock')
+
+    def test_new_verify_certificate_not_configured(self):
+        safe_client = Client(HOST, username='foo', password='baz', verify_certificate=True)
+
+        self.assertRaises(SSLError, safe_client.token.new, 'mock')
+
+    def test_new_verify_certificate_configured(self):
+        certificate_path = os.path.join(ASSET_ROOT, 'ssl', 'server.crt')
+        safe_client = Client(HOST, username='foo', password='baz', verify_certificate=certificate_path)
+
+        safe_client.token.is_valid('abcd')
+        # Does not raise
 
     def test_is_valid_with_an_invalid_token(self):
         response = self.good_client.token.is_valid('abcdef')

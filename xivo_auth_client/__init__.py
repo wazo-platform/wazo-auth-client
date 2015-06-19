@@ -17,4 +17,4 @@
 
 from xivo_lib_rest_client import new_client_factory
 
-Client = new_client_factory('auth_client.commands', 9497,  '0.1', auth_method='basic')
+Client = new_client_factory('auth_client.commands', 9497,  '0.1', auth_method='basic', default_https=True)
