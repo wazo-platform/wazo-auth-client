@@ -18,7 +18,8 @@ token_data
 {u'expires_at': u'2015-06-04T09:49:30.449625',
  u'issued_at': u'2015-06-04T08:49:30.449607',
  u'token': u'3d95d849-94e5-fc72-4ff8-93b597e6acf6',
- u'auth_id': u'5cdff4a3-24a3-494f-8d32-9c8695e868f9'}
+ u'auth_id': u'5cdff4a3-24a3-494f-8d32-9c8695e868f9',
+ u'xivo_user_uuid': u'5cdff4a3-24a3-494f-8d32-9c8695e868f9'}
 
 c.token.is_valid(token_data['token'])
 True
@@ -27,7 +28,8 @@ c.token.get(token_data['token'])
 {u'expires_at': u'2015-06-04T09:49:30.449625',
  u'issued_at': u'2015-06-04T08:49:30.449607',
  u'token': u'3d95d849-94e5-fc72-4ff8-93b597e6acf6',
- u'auth_id': u'5cdff4a3-24a3-494f-8d32-9c8695e868f9'}
+ u'auth_id': u'5cdff4a3-24a3-494f-8d32-9c8695e868f9',
+ u'xivo_user_uuid': u'5cdff4a3-24a3-494f-8d32-9c8695e868f9'}
 
 c.token.revoke(token_data['token'])
 
