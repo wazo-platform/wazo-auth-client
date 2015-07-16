@@ -17,10 +17,10 @@
 
 import json
 
-from xivo_lib_rest_client import BaseHTTPCommand
+from xivo_lib_rest_client import RESTCommand
 
 
-class TokenCommand(BaseHTTPCommand):
+class TokenCommand(RESTCommand):
 
     resource = 'token'
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
