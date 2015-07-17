@@ -2,3 +2,4 @@ docker-compose
 nose
 pyhamcrest
 stevedore==0.14.1
+git+https://github.com/xivo-pbx/xivo-lib-rest-client.git
