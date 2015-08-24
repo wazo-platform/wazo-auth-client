@@ -50,6 +50,12 @@ c = Client('localhost', username='alice', password='alice', verify_certificate='
 token_data = c.token.new('xivo_user')
 ```
 
+```python
+from xivo_auth_client import Client
+
+c = Client('localhost', username='service1', password='service1_token')
+
+token_data = c.token.new('xivo_service', backend_args={xivo_user_uuid='abcd-1234'})
 
 ## Tests
 
