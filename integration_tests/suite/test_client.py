@@ -32,7 +32,11 @@ from xivo_auth_client import Client
 logger = logging.getLogger(__name__)
 
 ASSET_ROOT = os.path.join(os.path.dirname(__file__), '..', 'assets')
+CA_CERT = os.path.join(ASSET_ROOT, 'ssl', 'server.crt')
 HOST = os.getenv('XIVO_AUTH_CLIENT_TEST_HOST', 'localhost')
+
+from requests.packages import urllib3
+urllib3.disable_warnings()
 
 
 class TestXiVOAuthClient(unittest.TestCase):
@@ -57,7 +61,7 @@ class TestXiVOAuthClient(unittest.TestCase):
         cls._run_cmd('docker-compose kill')
 
     def setUp(self):
-        self.good_client = Client(HOST, username='foo', password='bar')
+        self.good_client = Client(HOST, username='foo', password='bar', verify_certificate=CA_CERT)
 
     def test_new_with_a_successful_login(self):
         token_data = self.good_client.token.new('mock')
@@ -71,7 +75,7 @@ class TestXiVOAuthClient(unittest.TestCase):
         self.assertRaises(HTTPError, self.good_client.token.new, 'unknown')
 
     def test_new_with_wrong_credential(self):
-        bad_client = Client(HOST, username='foo', password='baz')
+        bad_client = Client(HOST, username='foo', password='baz', verify_certificate=CA_CERT)
 
         self.assertRaises(HTTPError, bad_client.token.new, 'mock')
 
@@ -81,8 +85,7 @@ class TestXiVOAuthClient(unittest.TestCase):
         self.assertRaises(SSLError, safe_client.token.new, 'mock')
 
     def test_new_verify_certificate_configured(self):
-        certificate_path = os.path.join(ASSET_ROOT, 'ssl', 'server.crt')
-        safe_client = Client(HOST, username='foo', password='baz', verify_certificate=certificate_path)
+        safe_client = Client(HOST, username='foo', password='baz', verify_certificate=CA_CERT)
 
         safe_client.token.is_valid('abcd')
         # Does not raise
