@@ -46,17 +46,25 @@ class TokenCommand(RESTCommand):
 
         self.session.delete(url, headers=self.headers)
 
-    def is_valid(self, token):
+    def is_valid(self, token, required_acl=None):
+        params = {}
+        if required_acl:
+            params['scope'] = required_acl
+
         url = '{base_url}/{token}'.format(base_url=self.base_url, token=token)
 
-        r = self.session.head(url, headers=self.headers)
+        r = self.session.head(url, headers=self.headers, params=params)
 
         return r.status_code == 204
 
-    def get(self, token):
+    def get(self, token, required_acl=None):
+        params = {}
+        if required_acl:
+            params['scope'] = required_acl
+
         url = '{base_url}/{token}'.format(base_url=self.base_url, token=token)
 
-        r = self.session.get(url, headers=self.headers)
+        r = self.session.get(url, headers=self.headers, params=params)
 
         if r.status_code != 200:
             self.raise_from_response(r)
