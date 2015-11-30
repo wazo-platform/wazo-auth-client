@@ -20,7 +20,7 @@ token_data
  u'token': u'3d95d849-94e5-fc72-4ff8-93b597e6acf6',
  u'auth_id': u'5cdff4a3-24a3-494f-8d32-9c8695e868f9',
  u'xivo_user_uuid': u'5cdff4a3-24a3-494f-8d32-9c8695e868f9',
- u'acls': [u'acl:dird']}
+ u'acls': [u'dird']}
 
 c.token.is_valid(token_data['token'])
 True
@@ -31,11 +31,11 @@ c.token.get(token_data['token'])
  u'token': u'3d95d849-94e5-fc72-4ff8-93b597e6acf6',
  u'auth_id': u'5cdff4a3-24a3-494f-8d32-9c8695e868f9',
  u'xivo_user_uuid': u'5cdff4a3-24a3-494f-8d32-9c8695e868f9',
- u'acls': [u'acl:dird']}
+ u'acls': [u'dird']}
 
-c.token.get(token_data['token'], required_acls='acl:foobar')  # 403
+c.token.get(token_data['token'], required_acls='foobar')  # 403
 
-c.token.is_valid(token_data['token'], required_acl='acl:foobar')
+c.token.is_valid(token_data['token'], required_acl='foobar')
 False
 
 c.token.revoke(token_data['token'])
