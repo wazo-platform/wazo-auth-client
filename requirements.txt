@@ -1,3 +1,4 @@
+--process-dependency-links
 requests==2.4.3
 stevedore==0.14.1
-git+https://github.com/xivo-pbx/xivo-lib-rest-client.git
+-e .
