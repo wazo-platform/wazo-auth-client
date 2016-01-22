@@ -7,9 +7,12 @@ Build-Depends:
  debhelper (>= 9),
  dh-python,
  python-all (>= 2.7),
- python-setuptools
+ python-setuptools,
+ python3-all,
+ python3-setuptools
 Standards-Version: 3.9.4
 X-Python-Version: >= 2.7
+X-Python3-Version: >= 3.4
 
 Package: xivo-auth-client
 Architecture: all
@@ -21,5 +24,18 @@ Depends:
  python-requests,
  python-stevedore
 Description: xivo-auth client library - Python 2
+ XiVO is a system based on a powerful IPBX, to bring an easy to
+ install solution for telephony and related services.
+
+Package: xivo-auth-client-python3
+Architecture: all
+Section: python
+Depends:
+ ${python3:Depends},
+ ${misc:Depends},
+ xivo-lib-rest-client-python3,
+ python3-requests,
+ python3-stevedore
+Description: xivo-auth client library - Python 3
  XiVO is a system based on a powerful IPBX, to bring an easy to
  install solution for telephony and related services.
