@@ -2,3 +2,4 @@
 requests==2.4.3
 stevedore==0.14.1
 -e .
+git+https://github.com/xivo-pbx/xivo-auth-client.git
