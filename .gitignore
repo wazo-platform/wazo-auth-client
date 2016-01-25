@@ -39,7 +39,7 @@ htmlcov/
 .coverage
 .coverage.*
 .cache
-nosetests.xml
+nosetests*.xml
 coverage.xml
 *,cover
 
