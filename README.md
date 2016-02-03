@@ -58,12 +58,14 @@ token_data = c.token.new('xivo_user')
 ```
 
 
-## Tests
+Running integration tests
+-------------------------
 
-to run the tests
+You need Docker installed.
 
-```sh
+```
 cd integration_tests
+pip install -U -r test-requirements.txt
 make test-setup
-nosetests
+make test
 ```
