@@ -25,3 +25,6 @@ consul:
   port: 8500
   token: 'the_one_ring'
   verify: false
+
+service_discovery:
+  enabled: false
