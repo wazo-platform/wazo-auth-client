@@ -29,7 +29,7 @@ class AuthClient(BaseClient):
                  version='0.1',
                  username=None,
                  password=None,
-                 verify_certificate=False,
+                 verify_certificate=True,
                  **kwargs):
         super(AuthClient, self).__init__(
             host=host,
