@@ -2,8 +2,8 @@ xivo-auth-client
 ================
 
 A python library to connect to xivo-auth. HTTPS is used by default. Certificates
-are not verified by default. To check if the certificates are valid, use the
-verify_certificate argument when instantiating the client.
+are verified by default: if you want to omit the check or use a different CA
+bundle, use the verify_certificate argument when instantiating the client.
 
 Usage:
 
@@ -67,5 +67,5 @@ You need Docker installed.
 cd integration_tests
 pip install -U -r test-requirements.txt
 make test-setup
-make test
+nosetests
 ```
