@@ -1,7 +1,7 @@
 .PHONY: test-setup
 
 test-setup:
-	docker pull xivo/xivo-auth
+	docker pull wazopbx/xivo-auth
 	docker pull n3llyb0y/wait
 	docker pull rabbitmq
 	docker pull progrium/consul
