@@ -5,4 +5,4 @@ test-setup:
 	docker pull n3llyb0y/wait
 	docker pull rabbitmq
 	docker pull progrium/consul
-	docker build -t xivo/xivo-auth-client-tests-data -f Dockerfile-data .
+	docker build -t wazopbx/xivo-auth-client-tests-data -f Dockerfile-data .
