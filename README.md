@@ -56,16 +56,3 @@ c = Client('localhost', username='alice', password='alice', verify_certificate='
 
 token_data = c.token.new('xivo_user')
 ```
-
-
-Running integration tests
--------------------------
-
-You need Docker installed.
-
-```
-cd integration_tests
-pip install -U -r test-requirements.txt
-make test-setup
-nosetests
-```
