@@ -45,6 +45,61 @@ False
 
 c.backends.list()
 ['xivo_user']
+
+# Policies
+c.set_token(token_data['token'])
+
+# Create a new policy
+c.policies.new(
+    'user',
+    'The default policy for users',
+    ['{% for line in user.lines %}confd.lines.{{ line.id }}.read\n{% endfor %}',
+     'dird.me.#'])
+{'uuid': '<the policy uuid>'
+ 'name': 'user',
+ 'description': 'The default policy for users',
+ 'acl_templates': ['{% for line in user.lines %}confd.lines.{{ line.id }}.read\n{% endfor %}',
+                   'dird.me.#']}
+
+# Get a policy by UUID
+c.policies.get('<the policy uuid>')
+{'uuid': '<the policy uuid>'
+ 'name': 'user',
+ 'description': 'The default policy for users',
+ 'acl_templates': ['{% for line in user.lines %}confd.lines.{{ line.id }}.read\n{% endfor %}',
+                   'dird.me.#']}
+
+# List or search policies
+c.policies.list(search='user', order='name', direction='asc', limit=10, offset=0)
+{'items': [
+    {'uuid': '<the policy uuid>'
+     'name': 'user',
+     'description': 'The default policy for users',
+     'acl_templates': ['{% for line in user.lines %}confd.lines.{{ line.id }}.read\n{% endfor %}',
+                       'dird.me.#']},
+ ],
+ 'total': 1}
+
+# Modify a policy
+c.policies.edit('<the policy uuid>', 'user', 'A new description', ['#'])
+{'uuid': '<the policy uuid>'
+ 'name': 'user',
+ 'description': 'A new description',
+ 'acl_templates': ['#']}
+
+# Add or remove acl templates
+c.policies.remove_acl_template('<the policy uuid>', '#')
+c.policies.add_acl_template('dird.me.#')
+c.policies.add_acl_template('confd.user.{{ user.uuid }}.read')
+
+c.policies.get('<the policy uuid>')
+{'uuid': '<the policy uuid>'
+ 'name': 'user',
+ 'description': 'A new description',
+ 'acl_templates': ['dird.me.#', 'confd.user.{{ user.uuid }}.read']}
+
+# delete a policy
+c.policies.delete('<the policy uuid>')
 ```
 
 To use a given certificate file
