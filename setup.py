@@ -22,10 +22,10 @@ setup(
     name='xivo_auth_client',
     version='0.1',
 
-    description='a simple client library for the xivo-auth HTTP interface',
+    description='a simple client library for the wazo-auth HTTP interface',
 
     author='Wazo Authors',
-    author_email='dev.wazo@gmail.com',
+    author_email='dev@wazo.community',
 
     url='http://wazo.community',
 
@@ -36,6 +36,7 @@ setup(
             'token = xivo_auth_client.commands.token:TokenCommand',
             'backends = xivo_auth_client.commands.backends:BackendsCommand',
             'policies = xivo_auth_client.commands.policies:PoliciesCommand',
+            'users = xivo_auth_client.commands.users:UsersCommand',
         ],
     }
 )
