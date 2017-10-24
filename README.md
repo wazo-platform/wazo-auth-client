@@ -100,6 +100,43 @@ c.policies.get('<the policy uuid>')
 
 # delete a policy
 c.policies.delete('<the policy uuid>')
+
+
+# Users
+
+# Creating a user
+
+```python
+user = c.users.create(username='alice', email_address='alice@example.com', password='s3cr37')
+user
+{'uuid': '<user uuid>', 'username': 'alice', 'email_addresses'=[{'address': 'alice@example.com', main=True, confirmed=False}]}
+```
+
+# Listing users
+
+```python
+c.users.list(search='foo', limit=5, offset=10, order='username', direction='asc')
+{'total': 42,
+ 'filtered': 5,  # Number of user matching "foo"
+ 'items': ...,  # The list of users
+}
+```
+
+# Deleting a user
+
+```python
+c.users.delete('<user-uuid>')
+```
+
+# Getting a user
+
+```python
+c.users.get('<user-uuid>')
+{'uuid': '<user uuid>', 'username': 'alice', 'email_addresses'=[{'address': 'alice@example.com', main=True, confirmed=False}]}
+```
+
+
+
 ```
 
 To use a given certificate file
