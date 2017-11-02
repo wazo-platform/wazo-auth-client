@@ -36,6 +36,7 @@ setup(
             'token = xivo_auth_client.commands.token:TokenCommand',
             'backends = xivo_auth_client.commands.backends:BackendsCommand',
             'policies = xivo_auth_client.commands.policies:PoliciesCommand',
+            'tenants = xivo_auth_client.commands.tenants:TenantsCommand',
             'users = xivo_auth_client.commands.users:UsersCommand',
         ],
     }
