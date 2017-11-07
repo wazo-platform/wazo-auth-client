@@ -135,6 +135,22 @@ c.users.delete('<user-uuid>')
 c.users.get('<user-uuid>')
 {'uuid': '<user uuid>', 'username': 'alice', 'email_addresses'=[{'address': 'alice@example.com', main=True, confirmed=False}]}
 
+# Adding a user to a tenant
+
+c.tenants.add_user('<tenant_uuid>', '<user_uuid>')
+
+# Removing a user from a tenant
+
+c.tenants.remove_user('<tenant_uuid>', '<user_uuid>')
+
+# List users associated to a tenant
+
+c.tenants.get_users('<tenant_uuid>', limit=5, offset=10, order='username', direction='asc')
+
+# List tenants associated to a user
+
+c.users.get_tenants('<user_uuid>', limit=5, offset=10, order='name', direction='asc')
+
 # To use a given certificate file
 
 from xivo_auth_client import Client

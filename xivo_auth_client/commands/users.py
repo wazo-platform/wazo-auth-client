@@ -60,6 +60,16 @@ class UsersCommand(RESTCommand):
 
         return r.json()
 
+    def get_tenants(self, user_uuid, **kwargs):
+        url = '{}/{}/tenants'.format(self.base_url, user_uuid)
+
+        r = self.session.get(url, headers=self.headers, params=kwargs)
+
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
+
     def list(self, **kwargs):
         r = self.session.get(
             self.base_url,
