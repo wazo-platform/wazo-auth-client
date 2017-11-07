@@ -101,16 +101,21 @@ c.policies.get('<the policy uuid>')
 # delete a policy
 c.policies.delete('<the policy uuid>')
 
-
 # Users
 
 # Creating a user
 
-```python
 user = c.users.create(username='alice', email_address='alice@example.com', password='s3cr37')
 user
 {'uuid': '<user uuid>', 'username': 'alice', 'email_addresses'=[{'address': 'alice@example.com', main=True, confirmed=False}]}
-```
+
+# Adding policies to users
+
+c.users.add_policy(<user_uuid>, <policy_uuid>)
+
+# Removing policies from users
+
+c.users.remove_policy(<user_uuid>, <policy_uuid>)
 
 # Listing users
 
@@ -120,28 +125,18 @@ c.users.list(search='foo', limit=5, offset=10, order='username', direction='asc'
  'filtered': 5,  # Number of user matching "foo"
  'items': ...,  # The list of users
 }
-```
 
 # Deleting a user
 
-```python
 c.users.delete('<user-uuid>')
-```
 
 # Getting a user
 
-```python
 c.users.get('<user-uuid>')
 {'uuid': '<user uuid>', 'username': 'alice', 'email_addresses'=[{'address': 'alice@example.com', main=True, confirmed=False}]}
-```
 
+# To use a given certificate file
 
-
-```
-
-To use a given certificate file
-
-```python
 from xivo_auth_client import Client
 
 c = Client('localhost', username='alice', password='alice', verify_certificate='</path/to/trusted/certificate>')
