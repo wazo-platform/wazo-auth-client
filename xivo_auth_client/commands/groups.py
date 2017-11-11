@@ -32,6 +32,16 @@ class GroupsCommand(RESTCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
+    def edit(self, group_uuid, **params):
+        url = '{}/{}'.format(self.base_url, group_uuid)
+
+        r = self.session.put(url, headers=self.headers, data=json.dump(params))
+
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
+
     def get(self, group_uuid):
         url = '{}/{}'.format(self.base_url, group_uuid)
 
