@@ -35,7 +35,7 @@ class GroupsCommand(RESTCommand):
     def edit(self, group_uuid, **params):
         url = '{}/{}'.format(self.base_url, group_uuid)
 
-        r = self.session.put(url, headers=self.headers, data=json.dump(params))
+        r = self.session.put(url, headers=self.headers, data=json.dumps(params))
 
         if r.status_code != 200:
             self.raise_from_response(r)
