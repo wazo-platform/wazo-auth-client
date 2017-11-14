@@ -24,6 +24,14 @@ class TenantsCommand(RESTCommand):
     resource = 'tenants'
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
+    def add_user(self, tenant_uuid, user_uuid):
+        url = self._user_relation_url(tenant_uuid, user_uuid)
+
+        r = self.session.put(url, headers=self.headers)
+
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
     def delete(self, tenant_uuid):
         url = '{}/{}'.format(self.base_url, tenant_uuid)
 
@@ -36,6 +44,16 @@ class TenantsCommand(RESTCommand):
         url = '{}/{}'.format(self.base_url, tenant_uuid)
 
         r = self.session.get(url)
+
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
+
+    def get_users(self, tenant_uuid, **kwargs):
+        url = '{}/{}/users'.format(self.base_url, tenant_uuid)
+
+        r = self.session.get(url, headers=self.headers, params=kwargs)
 
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -61,3 +79,14 @@ class TenantsCommand(RESTCommand):
             self.raise_from_response(r)
 
         return r.json()
+
+    def remove_user(self, tenant_uuid, user_uuid):
+        url = self._user_relation_url(tenant_uuid, user_uuid)
+
+        r = self.session.delete(url, headers=self.headers)
+
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def _user_relation_url(self, tenant_uuid, user_uuid):
+        return '{}/{}/users/{}'.format(self.base_url, tenant_uuid, user_uuid)
