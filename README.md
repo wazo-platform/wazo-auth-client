@@ -135,6 +135,23 @@ c.users.delete('<user-uuid>')
 c.users.get('<user-uuid>')
 {'uuid': '<user uuid>', 'username': 'alice', 'email_addresses'=[{'address': 'alice@example.com', main=True, confirmed=False}]}
 
+# Groups
+
+# Creating a group
+group = c.groups.new(name='<group_name>')
+
+# Getting a group
+c.groups.get(group['uuid'])
+
+# Modifying a group
+c.groups.edit(group['uuid'], {'name': '<new name>'})
+
+# Listing groups
+c.groups.list(search='<searched term>', name='<exact match search on name>', order='name', direction='desc', limit=10, offset=20)
+
+# Deleting a group
+c.groups.delete(group['uuid'])
+
 # Adding a user to a tenant
 
 c.tenants.add_user('<tenant_uuid>', '<user_uuid>')
