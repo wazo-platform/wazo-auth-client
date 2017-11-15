@@ -144,7 +144,7 @@ group = c.groups.new(name='<group_name>')
 c.groups.get(group['uuid'])
 
 # Modifying a group
-c.groups.get(group['uuid'], {'name': '<new name>'})
+c.groups.edit(group['uuid'], {'name': '<new name>'})
 
 # Listing groups
 c.groups.list(search='<searched term>', name='<exact match search on name>', order='name', direction='desc', limit=10, offset=20)
