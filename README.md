@@ -152,6 +152,18 @@ c.groups.list(search='<searched term>', name='<exact match search on name>', ord
 # Deleting a group
 c.groups.delete(group['uuid'])
 
+# Adding a user to a group
+c.groups.add_user(group['uuid'], <user_uuid>)
+
+# Removing a user from a group
+c.groups.remove_user(group['uuid'], <user_uuid>)
+
+# List users in a group
+c.groups.get_users(group['uuid'])
+
+# List all groups a user belongs to
+c.users.get_groups(<user_uuid>)
+
 # Adding a user to a tenant
 
 c.tenants.add_user('<tenant_uuid>', '<user_uuid>')
