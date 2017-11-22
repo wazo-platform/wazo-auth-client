@@ -50,25 +50,14 @@ class UsersCommand(RESTCommand):
 
         return r.json()
 
+    def get_groups(self, user_uuid, **kwargs):
+        return self._get_relation('groups', user_uuid, **kwargs)
+
     def get_policies(self, user_uuid, **kwargs):
-        url = '{}/{}/policies'.format(self.base_url, user_uuid)
-
-        r = self.session.get(url, headers=self.headers, params=kwargs)
-
-        if r.status_code != 200:
-            self.raise_from_response(r)
-
-        return r.json()
+        return self._get_relation('policies', user_uuid, **kwargs)
 
     def get_tenants(self, user_uuid, **kwargs):
-        url = '{}/{}/tenants'.format(self.base_url, user_uuid)
-
-        r = self.session.get(url, headers=self.headers, params=kwargs)
-
-        if r.status_code != 200:
-            self.raise_from_response(r)
-
-        return r.json()
+        return self._get_relation('tenants', user_uuid, **kwargs)
 
     def list(self, **kwargs):
         r = self.session.get(
@@ -97,3 +86,13 @@ class UsersCommand(RESTCommand):
 
         if r.status_code != 204:
             self.raise_from_response(r)
+
+    def _get_relation(self, resource, user_uuid, **kwargs):
+        url = '{}/{}/{}'.format(self.base_url, user_uuid, resource)
+
+        r = self.session.get(url, headers=self.headers, params=kwargs)
+
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
