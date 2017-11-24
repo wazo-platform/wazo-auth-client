@@ -24,8 +24,16 @@ class GroupsCommand(RESTCommand):
     resource = 'groups'
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
+    def add_policy(self, group_uuid, policy_uuid):
+        url = self._relation_url('policies', group_uuid, policy_uuid)
+
+        r = self.session.put(url, headers=self.headers)
+
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
     def add_user(self, group_uuid, user_uuid):
-        url = self._user_relation_url(group_uuid, user_uuid)
+        url = self._relation_url('users', group_uuid, user_uuid)
 
         r = self.session.put(url, headers=self.headers)
 
@@ -54,6 +62,16 @@ class GroupsCommand(RESTCommand):
         url = '{}/{}'.format(self.base_url, group_uuid)
 
         r = self.session.get(url)
+
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
+
+    def get_policies(self, group_uuid, **kwargs):
+        url = '{}/{}/policies'.format(self.base_url, group_uuid)
+
+        r = self.session.get(url, headers=self.headers, params=kwargs)
 
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -90,13 +108,21 @@ class GroupsCommand(RESTCommand):
 
         return r.json()
 
-    def remove_user(self, group_uuid, user_uuid):
-        url = self._user_relation_url(group_uuid, user_uuid)
+    def remove_policy(self, group_uuid, policy_uuid):
+        url = self._relation_url('policies', group_uuid, policy_uuid)
 
         r = self.session.delete(url, headers=self.headers)
 
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def _user_relation_url(self, group_uuid, user_uuid):
-        return '{}/{}/users/{}'.format(self.base_url, group_uuid, user_uuid)
+    def remove_user(self, group_uuid, user_uuid):
+        url = self._relation_url('users', group_uuid, user_uuid)
+
+        r = self.session.delete(url, headers=self.headers)
+
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def _relation_url(self, resource, group_uuid, resource_uuid):
+        return '/'.join([self.base_url, group_uuid, resource, resource_uuid])
