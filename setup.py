@@ -33,6 +33,7 @@ setup(
 
     entry_points={
         'auth_client.commands': [
+            'external = xivo_auth_client.commands.external:ExternalAuthCommand',
             'token = xivo_auth_client.commands.token:TokenCommand',
             'backends = xivo_auth_client.commands.backends:BackendsCommand',
             'groups = xivo_auth_client.commands.groups:GroupsCommand',
