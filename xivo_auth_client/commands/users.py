@@ -79,6 +79,16 @@ class UsersCommand(RESTCommand):
 
         return r.json()
 
+    def register(self, **kwargs):
+        url = '{}/register'.format(self.base_url)
+
+        r = self.session.post(url, headers=self.headers, data=json.dumps(kwargs))
+
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
+
     def remove_policy(self, user_uuid, policy_uuid):
         url = '{}/{}/policies/{}'.format(self.base_url, user_uuid, policy_uuid)
 
