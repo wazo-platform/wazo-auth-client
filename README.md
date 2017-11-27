@@ -105,7 +105,8 @@ c.policies.delete('<the policy uuid>')
 
 # Creating a user
 
-user = c.users.create(username='alice', email_address='alice@example.com', password='s3cr37')
+user = c.users.new(username='alice', email_address='alice@example.com', password='s3cr37')
+user = c.users.register(username='alice', email_address='alice@example.com', password='s3cr37')
 user
 {'uuid': '<user uuid>', 'username': 'alice', 'email_addresses'=[{'address': 'alice@example.com', main=True, confirmed=False}]}
 
