@@ -110,6 +110,9 @@ user = c.users.register(username='alice', email_address='alice@example.com', pas
 user
 {'uuid': '<user uuid>', 'username': 'alice', 'email_addresses'=[{'address': 'alice@example.com', main=True, confirmed=False}]}
 
+# Changing the user's password
+c.users.change_password(<user_uuid>, old_password='<old_password>', new_password='<new_password>')
+
 # Adding policies to users
 
 c.users.add_policy(<user_uuid>, <policy_uuid>)
