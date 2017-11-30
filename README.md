@@ -181,6 +181,12 @@ c.tenants.get_users('<tenant_uuid>', limit=5, offset=10, order='username', direc
 
 c.users.get_tenants('<user_uuid>', limit=5, offset=10, order='name', direction='asc')
 
+# External authentification storage
+c.external.create('<auth_service>', '<user_uuid>', {'key': 'value'})
+c.external.update('<auth_service>', '<user_uuid>', {'key': 'value'})
+c.external.get('<auth_service>', '<user_uuid>')
+c.external.delete('<auth_service>', '<user_uuid>')
+
 # To use a given certificate file
 
 from xivo_auth_client import Client
