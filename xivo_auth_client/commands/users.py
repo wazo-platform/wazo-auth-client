@@ -32,6 +32,14 @@ class UsersCommand(RESTCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
+    def change_password(self, user_uuid, **kwargs):
+        url = '/'.join([self.base_url, user_uuid, 'password'])
+
+        r = self.session.put(url, headers=self.headers, data=json.dumps(kwargs))
+
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
     def delete(self, user_uuid):
         url = '{}/{}'.format(self.base_url, user_uuid)
 
