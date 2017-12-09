@@ -189,6 +189,7 @@ c.external.create('<auth_service>', '<user_uuid>', {'key': 'value'})
 c.external.update('<auth_service>', '<user_uuid>', {'key': 'value'})
 c.external.get('<auth_service>', '<user_uuid>')
 c.external.delete('<auth_service>', '<user_uuid>')
+c.external.list('<user_uuid>', search='<search term>', limit=5, offset=10, order='type', direction='asc')
 
 # To use a given certificate file
 
