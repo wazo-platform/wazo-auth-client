@@ -49,6 +49,16 @@ class ExternalAuthCommand(RESTCommand):
 
         return r.json()
 
+    def list_(self, user_uuid, **kwargs):
+        url = '/'.join([self.base_url, user_uuid, 'external'])
+
+        r = self.session.get(url, headers=self.headers, params=kwargs)
+
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
+
     def update(self, auth_type, user_uuid, data):
         url = self._build_url(auth_type, user_uuid)
 
