@@ -35,6 +35,7 @@ setup(
         'auth_client.commands': [
             'emails = xivo_auth_client.commands.emails:EmailsCommand',
             'external = xivo_auth_client.commands.external:ExternalAuthCommand',
+            'init = xivo_auth_client.commands.init:InitCommand',
             'token = xivo_auth_client.commands.token:TokenCommand',
             'backends = xivo_auth_client.commands.backends:BackendsCommand',
             'groups = xivo_auth_client.commands.groups:GroupsCommand',
