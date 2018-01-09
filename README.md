@@ -173,6 +173,9 @@ c.groups.get_users(group['uuid'])
 # List all groups a user belongs to
 c.users.get_groups(<user_uuid>)
 
+# Updating a tenant
+c.tenants.edit('<tenant_uuid>', name='<new tenant name>')
+
 # Adding a user to a tenant
 
 c.tenants.add_user('<tenant_uuid>', '<user_uuid>')

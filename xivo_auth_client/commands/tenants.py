@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2017 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2017-2018 The Wazo Authors  (see the AUTHORS file)
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -39,6 +39,16 @@ class TenantsCommand(RESTCommand):
 
         if r.status_code != 204:
             self.raise_from_response(r)
+
+    def edit(self, tenant_uuid, **kwargs):
+        url = '{}/{}'.format(self.base_url, tenant_uuid)
+
+        r = self.session.put(url, headers=self.headers, data=json.dumps(kwargs))
+
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
 
     def get(self, tenant_uuid):
         url = '{}/{}'.format(self.base_url, tenant_uuid)
