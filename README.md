@@ -139,6 +139,11 @@ c.users.delete('<user-uuid>')
 c.users.get('<user-uuid>')
 {'uuid': '<user uuid>', 'username': 'alice', 'email_addresses'=[{'address': 'alice@example.com', main=True, confirmed=False}]}
 
+# Editing a user
+
+c.user.edit('<user-uuid>', firstname='foo', username='bar')
+{'uuid': '<user uuid>', 'username': 'foo', 'lastname': None, email_addresses=<email addresses>}
+
 # Groups
 
 # Creating a group
