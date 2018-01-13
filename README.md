@@ -113,6 +113,11 @@ user
 # Changing the user's password
 c.users.change_password(<user_uuid>, old_password='<old_password>', new_password='<new_password>')
 
+# Reset a user's password
+c.users.reset_password(username='<username>')
+c.users.reset_password(email='<email>')
+# This will send an email with the information required to reset your password
+
 # Adding policies to users
 
 c.users.add_policy(<user_uuid>, <policy_uuid>)

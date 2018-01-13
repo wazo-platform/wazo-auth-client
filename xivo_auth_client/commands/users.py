@@ -115,6 +115,14 @@ class UsersCommand(RESTCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
+    def reset_password(self, **kwargs):
+        url = '{}/password/reset'.format(self.base_url)
+
+        r = self.session.get(url, headers=self.headers, params=kwargs)
+
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
     def _get_relation(self, resource, user_uuid, **kwargs):
         url = '{}/{}/{}'.format(self.base_url, user_uuid, resource)
 
