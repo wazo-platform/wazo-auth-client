@@ -115,6 +115,26 @@ class UsersCommand(RESTCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
+    def reset_password(self, **kwargs):
+        url = '{}/password/reset'.format(self.base_url)
+
+        r = self.session.get(url, headers=self.headers, params=kwargs)
+
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
+    def set_password(self, user_uuid, password, token=None):
+        url = '{}/password/reset'.format(self.base_url)
+        query_string = {'user_uuid': user_uuid}
+        body = {'password': password}
+        if token:
+            self.session.headers['X-Auth-Token'] = token
+
+        r = self.session.post(url, headers=self.headers, params=query_string, data=json.dumps(body))
+
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
     def _get_relation(self, resource, user_uuid, **kwargs):
         url = '{}/{}/{}'.format(self.base_url, user_uuid, resource)
 
