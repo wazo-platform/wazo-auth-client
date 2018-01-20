@@ -115,6 +115,14 @@ class UsersCommand(RESTCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
+    def request_confirmation_email(self, user_uuid, email_uuid):
+        url = '{}/{}/emails/{}/confirm'.format(self.base_url, user_uuid, email_uuid)
+
+        r = self.session.get(url, headers=self.headers)
+
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
     def reset_password(self, **kwargs):
         url = '{}/password/reset'.format(self.base_url)
 
