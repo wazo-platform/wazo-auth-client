@@ -110,6 +110,9 @@ user = c.users.register(username='alice', email_address='alice@example.com', pas
 user
 {'uuid': '<user uuid>', 'username': 'alice', 'email_addresses'=[{'address': 'alice@example.com', main=True, confirmed=False}]}
 
+# Requesting a new email confirmation email
+c.users.request_confirmation_email('<user_uuid>', '<email_uuid>')
+
 # Changing the user's password
 c.users.change_password(<user_uuid>, old_password='<old_password>', new_password='<new_password>')
 
