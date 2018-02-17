@@ -143,6 +143,16 @@ class UsersCommand(RESTCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
+    def update_emails(self, user_uuid, emails, admin=False):
+        url = '/admin/users/{}/emails'.format(user_uuid)
+        body = {'emails': emails}
+
+        r = self.session.put(url, headers=self.headers, data=json.dumps(body))
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
+
     def _get_relation(self, resource, user_uuid, **kwargs):
         url = '{}/{}/{}'.format(self.base_url, user_uuid, resource)
 

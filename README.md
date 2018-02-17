@@ -120,7 +120,13 @@ c.users.change_password(<user_uuid>, old_password='<old_password>', new_password
 c.users.reset_password(username='<username>')
 c.users.reset_password(email='<email>')
 
-c.users.set_password(<user_uuid>, '<new password>', token=<token received by mail>')
+c.users.set_password(<user_uuid>, '<new password>', token=<token received by mail>)
+
+
+# Updating the user's email addresses
+# Modifying the confirmed status of an email requires admin=True
+emails = [{'address': 'foobar@example.com', 'main': True, 'confirmed': True}]
+c.users.update_emails(<user_uuid>, emails, admin=True)
 
 # Adding policies to users
 
