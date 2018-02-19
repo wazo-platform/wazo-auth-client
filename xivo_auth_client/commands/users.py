@@ -144,10 +144,11 @@ class UsersCommand(RESTCommand):
             self.raise_from_response(r)
 
     def update_emails(self, user_uuid, emails, admin=False):
-        if not admin:
-            raise NotImplementedError('Updating emails is only allower as an admin')
+        if admin:
+            url = '{}/users/{}/emails'.format(self._client.url('admin'), user_uuid)
+        else:
+            url = '{}/{}/emails'.format(self.base_url, user_uuid)
 
-        url = '{}/users/{}/emails'.format(self._client.url('admin'), user_uuid)
         body = {'emails': emails}
 
         r = self.session.put(url, headers=self.headers, data=json.dumps(body))
