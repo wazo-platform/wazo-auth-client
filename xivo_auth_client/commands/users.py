@@ -144,7 +144,7 @@ class UsersCommand(RESTCommand):
             self.raise_from_response(r)
 
     def update_emails(self, user_uuid, emails, admin=False):
-        url = '/admin/users/{}/emails'.format(user_uuid)
+        url = '{}/users/{}/emails'.format(self._client.url('admin'), user_uuid)
         body = {'emails': emails}
 
         r = self.session.put(url, headers=self.headers, data=json.dumps(body))
