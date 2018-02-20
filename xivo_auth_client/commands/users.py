@@ -143,11 +143,8 @@ class UsersCommand(RESTCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def update_emails(self, user_uuid, emails, admin=False):
-        if admin:
-            url = '{}/users/{}/emails'.format(self._client.url('admin'), user_uuid)
-        else:
-            url = '{}/{}/emails'.format(self.base_url, user_uuid)
+    def update_emails(self, user_uuid, emails):
+        url = '{}/{}/emails'.format(self.base_url, user_uuid)
 
         body = {'emails': emails}
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright 2015-2017 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2018 The Wazo Authors  (see the AUTHORS file)
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -33,6 +33,7 @@ setup(
 
     entry_points={
         'auth_client.commands': [
+            'admin = xivo_auth_client.commands.admin:AdminCommand',
             'emails = xivo_auth_client.commands.emails:EmailsCommand',
             'external = xivo_auth_client.commands.external:ExternalAuthCommand',
             'init = xivo_auth_client.commands.init:InitCommand',
