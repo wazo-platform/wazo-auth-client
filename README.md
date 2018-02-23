@@ -101,6 +101,19 @@ c.policies.get('<the policy uuid>')
 # delete a policy
 c.policies.delete('<the policy uuid>')
 
+# list tenants of a policy
+c.policies.get_tenants(<policy_uuid>, search='tenant', order='name', direction='asc', limit=10, offset=0)
+
+# Adding policies to tenants
+c.tenants.add_policy(<tenant_uuid>, <policy_uuid>)
+
+# Removing policies from tenants
+c.tenants.remove_policy(<tenant_uuid>, <policy_uuid>)
+
+# list policies of a tenant
+c.tenants.get_policies(<tenant_uuid>, search='policy', order='name', direction='asc', limit=10, offset=0)
+
+
 # Users
 
 # Creating a user
