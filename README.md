@@ -12,7 +12,7 @@ from xivo_auth_client import Client
 
 c = Client('localhost', username='alice', password='alice')
 
-token_data = c.token.new('xivo_user', expiration=3600)  # Creates a new token expiring in 3600 seconds
+token_data = c.token.new('wazo_user', expiration=3600)  # Creates a new token expiring in 3600 seconds
 
 token_data
 {u'expires_at': u'2015-06-04T09:49:30.449625',
@@ -44,7 +44,7 @@ c.token.is_valid(token_data['token'])
 False
 
 c.backends.list()
-['xivo_user']
+['wazo_user']
 
 # Policies
 c.set_token(token_data['token'])
@@ -235,5 +235,5 @@ from xivo_auth_client import Client
 
 c = Client('localhost', username='alice', password='alice', verify_certificate='</path/to/trusted/certificate>')
 
-token_data = c.token.new('xivo_user')
+token_data = c.token.new('wazo_user')
 ```
