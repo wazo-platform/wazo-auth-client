@@ -174,6 +174,7 @@ c.users.get('<user-uuid>')
 c.user.edit('<user-uuid>', firstname='foo', username='bar')
 {'uuid': '<user uuid>', 'username': 'foo', 'lastname': None, email_addresses=<email addresses>}
 
+
 # Groups
 
 # Creating a group
@@ -202,6 +203,12 @@ c.groups.get_users(group['uuid'])
 
 # List all groups a user belongs to
 c.users.get_groups(<user_uuid>)
+
+
+# Tenants
+
+# Creating a tenant
+c.tenants.new(name='<new tenant name>')
 
 # Updating a tenant
 c.tenants.edit('<tenant_uuid>', name='<new tenant name>')
