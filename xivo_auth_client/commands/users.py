@@ -78,7 +78,10 @@ class UsersCommand(RESTCommand):
         return r.json()
 
     def new(self, **kwargs):
-        r = self.session.post(self.base_url, headers=self.headers, data=json.dumps(kwargs))
+        headers = dict(self.headers)
+        if 'tenant_uuid' in kwargs:
+            headers['Wazo-Tenant'] = kwargs['tenant_uuid']
+        r = self.session.post(self.base_url, headers=headers, data=json.dumps(kwargs))
 
         if r.status_code != 200:
             self.raise_from_response(r)
