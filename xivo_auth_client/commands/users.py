@@ -66,9 +66,14 @@ class UsersCommand(RESTCommand):
         return self._get_relation('tenants', user_uuid, **kwargs)
 
     def list(self, **kwargs):
+        headers = dict(self.headers)
+        tenant_uuid = kwargs.pop('tenant_uuid', None)
+        if tenant_uuid:
+            headers['Wazo-Tenant'] = tenant_uuid
+
         r = self.session.get(
             self.base_url,
-            headers=self.headers,
+            headers=headers,
             params=kwargs,
         )
 
