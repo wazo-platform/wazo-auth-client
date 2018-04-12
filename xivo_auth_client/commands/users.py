@@ -41,9 +41,14 @@ class UsersCommand(RESTCommand):
             self.raise_from_response(r)
 
     def edit(self, user_uuid, **kwargs):
+        headers = dict(self.headers)
+        tenant_uuid = kwargs.pop('tenant_uuid', None)
+        if tenant_uuid is not None:
+            headers['Wazo-Tenant'] = tenant_uuid
+
         url = '{}/{}'.format(self.base_url, user_uuid)
 
-        r = self.session.put(url, headers=self.headers, data=json.dumps(kwargs))
+        r = self.session.put(url, headers=headers, data=json.dumps(kwargs))
 
         if r.status_code != 200:
             self.raise_from_response(r)
