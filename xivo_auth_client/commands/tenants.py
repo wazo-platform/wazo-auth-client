@@ -20,14 +20,6 @@ class TenantsCommand(RESTCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def add_user(self, tenant_uuid, user_uuid):
-        url = self._user_relation_url(tenant_uuid, user_uuid)
-
-        r = self.session.put(url, headers=self.headers)
-
-        if r.status_code != 204:
-            self.raise_from_response(r)
-
     def delete(self, tenant_uuid):
         url = '{}/{}'.format(self.base_url, tenant_uuid)
 
@@ -109,14 +101,3 @@ class TenantsCommand(RESTCommand):
 
         if r.status_code != 204:
             self.raise_from_response(r)
-
-    def remove_user(self, tenant_uuid, user_uuid):
-        url = self._user_relation_url(tenant_uuid, user_uuid)
-
-        r = self.session.delete(url, headers=self.headers)
-
-        if r.status_code != 204:
-            self.raise_from_response(r)
-
-    def _user_relation_url(self, tenant_uuid, user_uuid):
-        return '{}/{}/users/{}'.format(self.base_url, tenant_uuid, user_uuid)

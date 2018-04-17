@@ -28,28 +28,41 @@ class UsersCommand(RESTCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def delete(self, user_uuid):
+    def delete(self, user_uuid, tenant_uuid=None):
+        headers = dict(self.headers)
+        if tenant_uuid:
+            headers['Wazo-Tenant'] = tenant_uuid
+
         url = '{}/{}'.format(self.base_url, user_uuid)
 
-        r = self.session.delete(url, headers=self.headers)
+        r = self.session.delete(url, headers=headers)
 
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def edit(self, user_uuid, **kwargs):
+        headers = dict(self.headers)
+        tenant_uuid = kwargs.pop('tenant_uuid', None)
+        if tenant_uuid is not None:
+            headers['Wazo-Tenant'] = tenant_uuid
+
         url = '{}/{}'.format(self.base_url, user_uuid)
 
-        r = self.session.put(url, headers=self.headers, data=json.dumps(kwargs))
+        r = self.session.put(url, headers=headers, data=json.dumps(kwargs))
 
         if r.status_code != 200:
             self.raise_from_response(r)
 
         return r.json()
 
-    def get(self, user_uuid):
+    def get(self, user_uuid, tenant_uuid=None):
+        headers = dict(self.headers)
+        if tenant_uuid is not None:
+            headers['Wazo-Tenant'] = tenant_uuid
+
         url = '{}/{}'.format(self.base_url, user_uuid)
 
-        r = self.session.get(url)
+        r = self.session.get(url, headers=headers)
 
         if r.status_code != 200:
             self.raise_from_response(r)

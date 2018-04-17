@@ -215,14 +215,6 @@ c.tenants.new(name='<new tenant name>')
 # Updating a tenant
 c.tenants.edit('<tenant_uuid>', name='<new tenant name>')
 
-# Adding a user to a tenant
-
-c.tenants.add_user('<tenant_uuid>', '<user_uuid>')
-
-# Removing a user from a tenant
-
-c.tenants.remove_user('<tenant_uuid>', '<user_uuid>')
-
 # List users associated to a tenant
 
 c.tenants.get_users('<tenant_uuid>', limit=5, offset=10, order='username', direction='asc')
