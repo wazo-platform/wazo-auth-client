@@ -83,7 +83,7 @@ class TenantsCommand(RESTCommand):
     def new(self, **kwargs):
         headers = dict(self.headers)
 
-        parent_uuid = kwargs.pop('parent_uuid', None)
+        parent_uuid = kwargs.pop('parent_uuid', self._client.tenant())
         if parent_uuid:
             headers['Wazo-Tenant'] = parent_uuid
 

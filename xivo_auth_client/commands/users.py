@@ -97,8 +97,10 @@ class UsersCommand(RESTCommand):
 
     def new(self, **kwargs):
         headers = dict(self.headers)
-        if 'tenant_uuid' in kwargs:
+        tenant_uuid = kwargs.pop('tenant_uuid', self._client.tenant())
+        if tenant_uuid:
             headers['Wazo-Tenant'] = kwargs['tenant_uuid']
+
         r = self.session.post(self.base_url, headers=headers, data=json.dumps(kwargs))
 
         if r.status_code != 200:
