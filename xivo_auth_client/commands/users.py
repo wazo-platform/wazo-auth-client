@@ -99,7 +99,7 @@ class UsersCommand(RESTCommand):
         headers = dict(self.headers)
         tenant_uuid = kwargs.pop('tenant_uuid', self._client.tenant())
         if tenant_uuid:
-            headers['Wazo-Tenant'] = kwargs['tenant_uuid']
+            headers['Wazo-Tenant'] = tenant_uuid
 
         r = self.session.post(self.base_url, headers=headers, data=json.dumps(kwargs))
 
