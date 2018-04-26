@@ -42,7 +42,10 @@ class TokenCommand(RESTCommand):
 
         r = self.session.head(url, headers=self._ro_headers, params=params)
 
-        return r.status_code == 204
+        if r.status_code in (204, 403, 404):
+            return r.status_code == 204
+
+        self.raise_from_response(r)
 
     def get(self, token, required_acl=None, tenant=None):
         params = {}
