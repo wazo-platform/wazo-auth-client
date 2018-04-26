@@ -31,10 +31,12 @@ class TokenCommand(RESTCommand):
 
         self.session.delete(url, headers=self._ro_headers)
 
-    def is_valid(self, token, required_acl=None):
+    def is_valid(self, token, required_acl=None, tenant=None):
         params = {}
         if required_acl:
             params['scope'] = required_acl
+        if tenant:
+            params['tenant'] = tenant
 
         url = '{base_url}/{token}'.format(base_url=self.base_url, token=token)
 
