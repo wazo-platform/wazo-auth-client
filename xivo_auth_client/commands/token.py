@@ -44,10 +44,12 @@ class TokenCommand(RESTCommand):
 
         return r.status_code == 204
 
-    def get(self, token, required_acl=None):
+    def get(self, token, required_acl=None, tenant=None):
         params = {}
         if required_acl:
             params['scope'] = required_acl
+        if tenant:
+            params['tenant'] = tenant
 
         url = '{base_url}/{token}'.format(base_url=self.base_url, token=token)
 
