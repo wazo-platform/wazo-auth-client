@@ -12,6 +12,7 @@ from xivo_auth_client import Client
 
 c = Client('localhost', username='alice', password='alice')
 
+# Tokens
 token_data = c.token.new('wazo_user', expiration=3600)  # Creates a new token expiring in 3600 seconds
 
 token_data
@@ -33,11 +34,25 @@ c.token.get(token_data['token'])
  u'xivo_user_uuid': u'5cdff4a3-24a3-494f-8d32-9c8695e868f9',
  u'acls': [u'dird']}
 
+## ACL validation
 c.token.get(token_data['token'], required_acls='foobar')  # 403
 
 c.token.is_valid(token_data['token'], required_acl='foobar')
 False
 
+## Tenant validation
+c.token.get(token_data['token'], tenant='alice-tenant-uuid')
+{u'expires_at': u'2015-06-04T09:49:30.449625',
+ u'issued_at': u'2015-06-04T08:49:30.449607',
+ u'token': u'3d95d849-94e5-fc72-4ff8-93b597e6acf6',
+ u'auth_id': u'5cdff4a3-24a3-494f-8d32-9c8695e868f9',
+ u'xivo_user_uuid': u'5cdff4a3-24a3-494f-8d32-9c8695e868f9',
+ u'acls': [u'dird']}
+
+c.token.is_valid(token_data['token'], tenant='alice-tenant-uuid')
+True
+
+## Token revocation
 c.token.revoke(token_data['token'])
 
 c.token.is_valid(token_data['token'])
