@@ -89,17 +89,20 @@ class PoliciesCommand(RESTCommand):
 
         return r.json()
 
-    def new(self, name, description=None, acl_templates=None):
+    def new(self, name, description=None, acl_templates=None, tenant_uuid=None):
+        headers = dict(self.headers)
+
+        tenant_uuid = tenant_uuid or self._client.tenant()
+        if tenant_uuid:
+            headers['Wazo-Tenant'] = tenant_uuid
+
         data = {'name': name}
         if description:
             data['description'] = description
         if acl_templates:
             data['acl_templates'] = acl_templates
 
-        r = self.session.post(
-            self.base_url,
-            headers=self.headers,
-            data=json.dumps(data))
+        r = self.session.post(self.base_url, headers=headers, data=json.dumps(data))
 
         if r.status_code != 200:
             self.raise_from_response(r)
