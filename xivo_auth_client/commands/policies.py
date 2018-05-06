@@ -65,8 +65,14 @@ class PoliciesCommand(RESTCommand):
 
         return r.json()
 
-    def list(self, search=None, order=None, direction=None, limit=None, offset=None):
-        params = {}
+    def list(self, search=None, order=None, direction=None, limit=None, offset=None, tenant_uuid=None, recurse=False):
+        headers = dict(self.headers)
+
+        tenant_uuid = tenant_uuid or self._client.tenant()
+        if tenant_uuid:
+            headers['Wazo-Tenant'] = tenant_uuid
+
+        params = {'recurse': recurse}
         if search:
             params['search'] = search
         if order:
@@ -78,11 +84,7 @@ class PoliciesCommand(RESTCommand):
         if offset:
             params['offset'] = offset
 
-        r = self.session.get(
-            self.base_url,
-            headers=self.headers,
-            params=params,
-        )
+        r = self.session.get(self.base_url, headers=headers, params=params)
 
         if r.status_code != 200:
             self.raise_from_response(r)
