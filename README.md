@@ -69,12 +69,15 @@ c.policies.new(
     'user',
     'The default policy for users',
     ['{% for line in user.lines %}confd.lines.{{ line.id }}.read\n{% endfor %}',
-     'dird.me.#'])
+     'dird.me.#'],
+    tenant_uuid='my-tenant-uuid',
+)
 {'uuid': '<the policy uuid>'
  'name': 'user',
  'description': 'The default policy for users',
  'acl_templates': ['{% for line in user.lines %}confd.lines.{{ line.id }}.read\n{% endfor %}',
-                   'dird.me.#']}
+                   'dird.me.#'],
+ 'tenant_uuid': 'my-tenant-uuid'}
 
 # Get a policy by UUID
 c.policies.get('<the policy uuid>')
@@ -82,16 +85,18 @@ c.policies.get('<the policy uuid>')
  'name': 'user',
  'description': 'The default policy for users',
  'acl_templates': ['{% for line in user.lines %}confd.lines.{{ line.id }}.read\n{% endfor %}',
-                   'dird.me.#']}
+                   'dird.me.#']
+ 'tenant_uuid': 'my-tenant-uuid'}
 
 # List or search policies
-c.policies.list(search='user', order='name', direction='asc', limit=10, offset=0)
+c.policies.list(search='user', order='name', direction='asc', limit=10, offset=0, tenant_uuid='my-tenant-uuid', recurse=True)
 {'items': [
     {'uuid': '<the policy uuid>'
      'name': 'user',
      'description': 'The default policy for users',
      'acl_templates': ['{% for line in user.lines %}confd.lines.{{ line.id }}.read\n{% endfor %}',
-                       'dird.me.#']},
+                       'dird.me.#'],
+     'tenant_uuid': 'my-tenant-uuid'}
  ],
  'total': 1}
 
@@ -100,7 +105,8 @@ c.policies.edit('<the policy uuid>', 'user', 'A new description', ['#'])
 {'uuid': '<the policy uuid>'
  'name': 'user',
  'description': 'A new description',
- 'acl_templates': ['#']}
+ 'acl_templates': ['#'],
+ 'tenant_uuid': 'my-tenant-uuid'}
 
 # Add or remove acl templates
 c.policies.remove_acl_template('<the policy uuid>', '#')
@@ -111,19 +117,11 @@ c.policies.get('<the policy uuid>')
 {'uuid': '<the policy uuid>'
  'name': 'user',
  'description': 'A new description',
- 'acl_templates': ['dird.me.#', 'confd.user.{{ user.uuid }}.read']}
+ 'acl_templates': ['dird.me.#', 'confd.user.{{ user.uuid }}.read'],
+ 'tenant_uuid': 'my-tenant-uuid'}
 
 # delete a policy
 c.policies.delete('<the policy uuid>')
-
-# list tenants of a policy
-c.policies.get_tenants(<policy_uuid>, search='tenant', order='name', direction='asc', limit=10, offset=0)
-
-# Adding policies to tenants
-c.tenants.add_policy(<tenant_uuid>, <policy_uuid>)
-
-# Removing policies from tenants
-c.tenants.remove_policy(<tenant_uuid>, <policy_uuid>)
 
 # list policies of a tenant
 c.tenants.get_policies(<tenant_uuid>, search='policy', order='name', direction='asc', limit=10, offset=0)
