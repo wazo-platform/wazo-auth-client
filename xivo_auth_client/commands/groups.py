@@ -77,11 +77,12 @@ class GroupsCommand(RESTCommand):
         return r.json()
 
     def list(self, **kwargs):
-        r = self.session.get(
-            self.base_url,
-            headers=self.headers,
-            params=kwargs,
-        )
+        headers = dict(self.headers)
+        tenant_uuid = kwargs.pop('tenant_uuid', self._client.tenant())
+        if tenant_uuid:
+            headers['Wazo-Tenant'] = tenant_uuid
+
+        r = self.session.get(self.base_url, headers=headers, params=kwargs)
 
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -89,7 +90,12 @@ class GroupsCommand(RESTCommand):
         return r.json()
 
     def new(self, **kwargs):
-        r = self.session.post(self.base_url, headers=self.headers, data=json.dumps(kwargs))
+        headers = dict(self.headers)
+        tenant_uuid = kwargs.pop('tenant_uuid', self._client.tenant())
+        if tenant_uuid:
+            headers['Wazo-Tenant'] = tenant_uuid
+
+        r = self.session.post(self.base_url, headers=headers, data=json.dumps(kwargs))
 
         if r.status_code != 200:
             self.raise_from_response(r)
