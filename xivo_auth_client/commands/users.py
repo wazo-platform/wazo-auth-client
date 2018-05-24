@@ -80,7 +80,7 @@ class UsersCommand(RESTCommand):
 
     def list(self, **kwargs):
         headers = dict(self.headers)
-        tenant_uuid = kwargs.pop('tenant_uuid', None)
+        tenant_uuid = kwargs.pop('tenant_uuid', self._client.tenant())
         if tenant_uuid:
             headers['Wazo-Tenant'] = tenant_uuid
 
