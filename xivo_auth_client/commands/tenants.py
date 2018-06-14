@@ -68,10 +68,14 @@ class TenantsCommand(RESTCommand):
 
         return r.json()
 
-    def list(self, **kwargs):
+    def list(self, tenant_uuid=None, **kwargs):
+        headers = dict(self.headers)
+        if tenant_uuid:
+            headers['Wazo-Tenant'] = tenant_uuid
+
         r = self.session.get(
             self.base_url,
-            headers=self.headers,
+            headers=headers,
             params=kwargs,
         )
 
