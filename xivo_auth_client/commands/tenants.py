@@ -105,3 +105,11 @@ class TenantsCommand(RESTCommand):
 
         if r.status_code != 204:
             self.raise_from_response(r)
+
+    def remove_user(self, tenant_uuid, user_uuid):
+        url = '/'.join([self.base_url, tenant_uuid, 'users', user_uuid])
+
+        r = self.session.delete(url, headers=self.headers)
+
+        if r.status_code != 204:
+            self.raise_from_response(r)
