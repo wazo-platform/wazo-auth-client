@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: GPL-3.0+
 
 import urllib
-import json
 
 from xivo_lib_rest_client import RESTCommand
 
@@ -30,15 +29,10 @@ class PoliciesCommand(RESTCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def edit(self, policy_uuid, name, description=None, acl_templates=None):
+    def edit(self, policy_uuid, name, **kwargs):
         url = '{}/{}'.format(self.base_url, policy_uuid)
-        args = {'name': name}
-        if description:
-            args['description'] = description
-        if acl_templates:
-            args['acl_templates'] = acl_templates
-
-        r = self.session.put(url, headers=self.headers, data=json.dumps(args))
+        kwargs['name'] = name
+        r = self.session.put(url, headers=self.headers, json=kwargs)
 
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -65,46 +59,29 @@ class PoliciesCommand(RESTCommand):
 
         return r.json()
 
-    def list(self, search=None, order=None, direction=None, limit=None, offset=None, tenant_uuid=None, recurse=False):
+    def list(self, tenant_uuid=None, **kwargs):
         headers = dict(self.headers)
 
         tenant_uuid = tenant_uuid or self._client.tenant()
         if tenant_uuid:
             headers['Wazo-Tenant'] = tenant_uuid
 
-        params = {'recurse': recurse}
-        if search:
-            params['search'] = search
-        if order:
-            params['order'] = order
-        if direction:
-            params['direction'] = direction
-        if limit:
-            params['limit'] = limit
-        if offset:
-            params['offset'] = offset
-
-        r = self.session.get(self.base_url, headers=headers, params=params)
+        r = self.session.get(self.base_url, headers=headers, params=kwargs)
 
         if r.status_code != 200:
             self.raise_from_response(r)
 
         return r.json()
 
-    def new(self, name, description=None, acl_templates=None, tenant_uuid=None):
+    def new(self, name, tenant_uuid=None, **kwargs):
         headers = dict(self.headers)
 
         tenant_uuid = tenant_uuid or self._client.tenant()
         if tenant_uuid:
             headers['Wazo-Tenant'] = tenant_uuid
 
-        data = {'name': name}
-        if description:
-            data['description'] = description
-        if acl_templates:
-            data['acl_templates'] = acl_templates
-
-        r = self.session.post(self.base_url, headers=headers, data=json.dumps(data))
+        kwargs['name'] = name
+        r = self.session.post(self.base_url, headers=headers, json=kwargs)
 
         if r.status_code != 200:
             self.raise_from_response(r)
