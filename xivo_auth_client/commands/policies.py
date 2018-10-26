@@ -2,8 +2,7 @@
 # Copyright 2017-2018 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
-import urllib
-
+from six.moves.urllib.parse import quote
 from xivo_lib_rest_client import RESTCommand
 
 
@@ -13,7 +12,7 @@ class PoliciesCommand(RESTCommand):
     headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
     def add_acl_template(self, policy_uuid, acl_template):
-        acl_template = urllib.quote(acl_template)
+        acl_template = quote(acl_template)
         url = '{}/{}/acl_templates/{}'.format(self.base_url, policy_uuid, acl_template)
 
         r = self.session.put(url, headers=self.headers)
@@ -89,7 +88,7 @@ class PoliciesCommand(RESTCommand):
         return r.json()
 
     def remove_acl_template(self, policy_uuid, acl_template):
-        acl_template = urllib.quote(acl_template)
+        acl_template = quote(acl_template)
         url = '{}/{}/acl_templates/{}'.format(self.base_url, policy_uuid, acl_template)
 
         r = self.session.delete(url, headers=self.headers)
