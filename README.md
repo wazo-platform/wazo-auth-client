@@ -67,9 +67,11 @@ c.set_token(token_data['token'])
 # Create a new policy
 c.policies.new(
     'user',
-    'The default policy for users',
-    ['{% for line in user.lines %}confd.lines.{{ line.id }}.read\n{% endfor %}',
-     'dird.me.#'],
+    description='The default policy for users',
+    acl_templates=[
+        '{% for line in user.lines %}confd.lines.{{ line.id }}.read\n{% endfor %}',
+        'dird.me.#'
+    ],
     tenant_uuid='my-tenant-uuid',
 )
 {'uuid': '<the policy uuid>'
@@ -168,7 +170,6 @@ c.users.remove_policy(<user_uuid>, <policy_uuid>)
 
 # Listing users
 
-```python
 c.users.list(search='foo', limit=5, offset=10, order='username', direction='asc')
 {'total': 42,
  'filtered': 5,  # Number of user matching "foo"
@@ -186,7 +187,7 @@ c.users.get('<user-uuid>')
 
 # Editing a user
 
-c.user.edit('<user-uuid>', firstname='foo', username='bar')
+c.users.edit('<user-uuid>', firstname='foo', username='bar')
 {'uuid': '<user uuid>', 'username': 'foo', 'lastname': None, email_addresses=<email addresses>}
 
 
