@@ -13,8 +13,10 @@ class TokenCommand(RESTCommand):
     _ro_headers = {'Accept': 'application/json'}
     _rw_headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
-    def new(self, backend, expiration=None):
-        data = {'backend': backend}
+    def new(self, backend=None, expiration=None):
+        data = {}
+        if backend:
+            data['backend'] = backend
         if expiration:
             data['expiration'] = expiration
         r = self.session.post(self.base_url,
