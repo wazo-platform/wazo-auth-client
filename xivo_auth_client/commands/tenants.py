@@ -2,8 +2,6 @@
 # Copyright 2017-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
-import json
-
 from xivo_lib_rest_client import RESTCommand
 
 
@@ -32,7 +30,7 @@ class TenantsCommand(RESTCommand):
     def edit(self, tenant_uuid, **kwargs):
         url = '{}/{}'.format(self.base_url, tenant_uuid)
 
-        r = self.session.put(url, headers=self._rw_headers, data=json.dumps(kwargs))
+        r = self.session.put(url, headers=self._rw_headers, json=kwargs)
 
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -92,7 +90,7 @@ class TenantsCommand(RESTCommand):
         if parent_uuid:
             headers['Wazo-Tenant'] = parent_uuid
 
-        r = self.session.post(self.base_url, headers=headers, data=json.dumps(kwargs))
+        r = self.session.post(self.base_url, headers=headers, json=kwargs)
 
         if r.status_code != 200:
             self.raise_from_response(r)

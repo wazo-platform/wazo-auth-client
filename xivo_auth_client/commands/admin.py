@@ -2,8 +2,6 @@
 # Copyright 2018-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
-import json
-
 from xivo_lib_rest_client import RESTCommand
 
 
@@ -17,7 +15,7 @@ class AdminCommand(RESTCommand):
 
         body = {'emails': emails}
 
-        r = self.session.put(url, headers=self._rw_headers, data=json.dumps(body))
+        r = self.session.put(url, headers=self._rw_headers, json=body)
         if r.status_code != 200:
             self.raise_from_response(r)
 

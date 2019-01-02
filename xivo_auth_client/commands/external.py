@@ -2,8 +2,6 @@
 # Copyright 2017-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
 
-import json
-
 from xivo_lib_rest_client import RESTCommand
 
 
@@ -16,7 +14,7 @@ class ExternalAuthCommand(RESTCommand):
     def create(self, auth_type, user_uuid, data):
         url = self._build_url(auth_type, user_uuid)
 
-        r = self.session.post(url, headers=self._rw_headers, data=json.dumps(data))
+        r = self.session.post(url, headers=self._rw_headers, json=data)
         if r.status_code != 200:
             self.raise_from_response(r)
 
@@ -51,7 +49,7 @@ class ExternalAuthCommand(RESTCommand):
     def update(self, auth_type, user_uuid, data):
         url = self._build_url(auth_type, user_uuid)
 
-        r = self.session.put(url, headers=self._rw_headers, data=json.dumps(data))
+        r = self.session.put(url, headers=self._rw_headers, json=data)
         if r.status_code != 200:
             self.raise_from_response(r)
 

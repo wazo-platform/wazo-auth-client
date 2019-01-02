@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
-# Copyright 2015-2018 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0+
-
-import json
 
 from xivo_lib_rest_client import RESTCommand
 
@@ -19,9 +17,7 @@ class TokenCommand(RESTCommand):
             data['backend'] = backend
         if expiration:
             data['expiration'] = expiration
-        r = self.session.post(self.base_url,
-                              headers=self._rw_headers,
-                              data=json.dumps(data))
+        r = self.session.post(self.base_url, headers=self._rw_headers, json=data)
 
         if r.status_code != 200:
             self.raise_from_response(r)
