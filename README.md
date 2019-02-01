@@ -221,6 +221,12 @@ c.groups.get_users(group['uuid'])
 c.users.get_groups(<user_uuid>)
 
 
+# Sessions
+
+# Listing sessions
+c.sessions.list(limit=10, offset=20)
+
+
 # Tenants
 
 # Creating a tenant

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright 2015-2018 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from setuptools import setup
@@ -31,6 +31,7 @@ setup(
             'policies = xivo_auth_client.commands.policies:PoliciesCommand',
             'tenants = xivo_auth_client.commands.tenants:TenantsCommand',
             'users = xivo_auth_client.commands.users:UsersCommand',
+            'sessions = xivo_auth_client.commands.sessions:SessionsCommand',
         ],
     }
 )
