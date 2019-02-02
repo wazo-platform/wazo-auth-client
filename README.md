@@ -13,7 +13,7 @@ from xivo_auth_client import Client
 c = Client('localhost', username='alice', password='alice')
 
 # Tokens
-token_data = c.token.new('wazo_user', expiration=3600)  # Creates a new token expiring in 3600 seconds
+token_data = c.token.new('wazo_user', expiration=3600, session_type='mobile')  # Creates a new token expiring in 3600 seconds
 
 token_data
 {u'expires_at': u'2015-06-04T09:49:30.449625',
