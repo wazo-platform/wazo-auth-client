@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2015 Avencall
+# Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import requests
@@ -19,6 +19,7 @@ class AuthClient(BaseClient):
                  password=None,
                  verify_certificate=True,
                  **kwargs):
+        kwargs.pop('key_file', None)
         super(AuthClient, self).__init__(
             host=host,
             port=port,
