@@ -18,7 +18,7 @@ class TokenCommand(RESTCommand):
         if expiration:
             data['expiration'] = expiration
 
-        headers = self._rw_headers
+        headers = dict(self._rw_headers)
         if session_type:
             headers['Wazo-Session-Type'] = session_type
 
