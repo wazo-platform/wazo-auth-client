@@ -13,7 +13,7 @@ from xivo_auth_client import Client
 c = Client('localhost', username='alice', password='alice')
 
 # Tokens
-token_data = c.token.new('wazo_user', expiration=3600)  # Creates a new token expiring in 3600 seconds
+token_data = c.token.new('wazo_user', expiration=3600, session_type='mobile')  # Creates a new token expiring in 3600 seconds
 
 token_data
 {u'expires_at': u'2015-06-04T09:49:30.449625',
@@ -219,6 +219,12 @@ c.groups.get_users(group['uuid'])
 
 # List all groups a user belongs to
 c.users.get_groups(<user_uuid>)
+
+
+# Sessions
+
+# Listing sessions
+c.sessions.list(limit=10, offset=20)
 
 
 # Tenants

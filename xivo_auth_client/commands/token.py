@@ -11,13 +11,18 @@ class TokenCommand(RESTCommand):
     _ro_headers = {'Accept': 'application/json'}
     _rw_headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
-    def new(self, backend=None, expiration=None):
+    def new(self, backend=None, expiration=None, session_type=None):
         data = {}
         if backend:
             data['backend'] = backend
         if expiration:
             data['expiration'] = expiration
-        r = self.session.post(self.base_url, headers=self._rw_headers, json=data)
+
+        headers = dict(self._rw_headers)
+        if session_type:
+            headers['Wazo-Session-Type'] = session_type
+
+        r = self.session.post(self.base_url, headers=headers, json=data)
 
         if r.status_code != 200:
             self.raise_from_response(r)
