@@ -77,6 +77,9 @@ class UsersCommand(RESTCommand):
     def get_tenants(self, user_uuid, **kwargs):
         return self._get_relation('tenants', user_uuid, **kwargs)
 
+    def get_sessions(self, user_uuid, **kwargs):
+        return self._get_relation('sessions', user_uuid, **kwargs)
+
     def list(self, **kwargs):
         headers = dict(self._ro_headers)
         tenant_uuid = kwargs.pop('tenant_uuid', self._client.tenant())
@@ -164,10 +167,14 @@ class UsersCommand(RESTCommand):
 
         return r.json()
 
-    def _get_relation(self, resource, user_uuid, **kwargs):
+    def _get_relation(self, resource, user_uuid, tenant_uuid=None, **kwargs):
+        headers = dict(self._ro_headers)
+        if tenant_uuid is not None:
+            headers['Wazo-Tenant'] = tenant_uuid
+
         url = '{}/{}/{}'.format(self.base_url, user_uuid, resource)
 
-        r = self.session.get(url, headers=self._ro_headers, params=kwargs)
+        r = self.session.get(url, headers=headers, params=kwargs)
 
         if r.status_code != 200:
             self.raise_from_response(r)

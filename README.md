@@ -226,6 +226,9 @@ c.users.get_groups(<user_uuid>)
 # Listing sessions
 c.sessions.list(limit=10, offset=20)
 
+# List all sessions a user belongs to
+c.users.get_sessions(<user_uuid>)
+
 
 # Tenants
 
