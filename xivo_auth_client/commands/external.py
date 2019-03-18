@@ -2,6 +2,7 @@
 # Copyright 2017-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
+from flask import request
 from xivo_lib_rest_client import RESTCommand
 
 
@@ -20,6 +21,18 @@ class ExternalAuthCommand(RESTCommand):
 
         return r.json()
 
+    def create_config(self, auth_type, data, tenant_uuid=None):
+        url = self._build_config_url(auth_type)
+        headers = dict(self._rw_headers)
+        headers['Wazo-Tenant'] = tenant_uuid or self._client.tenant()
+
+        r = self.session.post(url, headers=headers, json=data)
+
+        if r.status_code != 201:
+            self.raise_from_response(r)
+
+        return r.json()
+
     def delete(self, auth_type, user_uuid):
         url = self._build_url(auth_type, user_uuid)
 
@@ -27,10 +40,30 @@ class ExternalAuthCommand(RESTCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
+    def delete_config(self, auth_type, tenant_uuid=None):
+        url = self._build_config_url(auth_type)
+        headers = dict(self._rw_headers)
+        headers['Wazo-Tenant'] = tenant_uuid or self._client.tenant()
+
+        r = self.session.delete(url, headers=headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
     def get(self, auth_type, user_uuid):
         url = self._build_url(auth_type, user_uuid)
 
         r = self.session.get(url, headers=self._ro_headers)
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
+
+    def get_config(self, auth_type, tenant_uuid=None):
+        url = self._build_config_url(auth_type)
+        headers = dict(self._ro_headers)
+        headers['Wazo-Tenant'] = tenant_uuid or self._client.tenant()
+
+        r = self.session.get(url, headers=headers)
         if r.status_code != 200:
             self.raise_from_response(r)
 
@@ -55,5 +88,17 @@ class ExternalAuthCommand(RESTCommand):
 
         return r.json()
 
+    def update_config(self, auth_type, data):
+        url = self._build_config_url(auth_type)
+
+        r = self.session.put(url, headers=self._rw_headers, json=data)
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
+
     def _build_url(self, auth_type, user_uuid):
         return '/'.join([self.base_url, user_uuid, 'external', auth_type])
+
+    def _build_config_url(self, auth_type):
+        return '/'.join([self._client.url('external'), auth_type, 'config'])
