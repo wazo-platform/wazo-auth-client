@@ -2,7 +2,6 @@
 # Copyright 2017-2019 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from flask import request
 from xivo_lib_rest_client import RESTCommand
 
 
@@ -24,7 +23,10 @@ class ExternalAuthCommand(RESTCommand):
     def create_config(self, auth_type, data, tenant_uuid=None):
         url = self._build_config_url(auth_type)
         headers = dict(self._rw_headers)
-        headers['Wazo-Tenant'] = tenant_uuid or self._client.tenant()
+
+        tenant_uuid = tenant_uuid or self._client.tenant()
+        if tenant_uuid:
+            headers['Wazo-Tenant'] = tenant_uuid
 
         r = self.session.post(url, headers=headers, json=data)
 
@@ -43,7 +45,10 @@ class ExternalAuthCommand(RESTCommand):
     def delete_config(self, auth_type, tenant_uuid=None):
         url = self._build_config_url(auth_type)
         headers = dict(self._rw_headers)
-        headers['Wazo-Tenant'] = tenant_uuid or self._client.tenant()
+
+        tenant_uuid = tenant_uuid or self._client.tenant()
+        if tenant_uuid:
+            headers['Wazo-Tenant'] = tenant_uuid
 
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
@@ -61,7 +66,10 @@ class ExternalAuthCommand(RESTCommand):
     def get_config(self, auth_type, tenant_uuid=None):
         url = self._build_config_url(auth_type)
         headers = dict(self._ro_headers)
-        headers['Wazo-Tenant'] = tenant_uuid or self._client.tenant()
+
+        tenant_uuid = tenant_uuid or self._client.tenant()
+        if tenant_uuid:
+            headers['Wazo-Tenant'] = tenant_uuid
 
         r = self.session.get(url, headers=headers)
         if r.status_code != 200:
@@ -90,8 +98,13 @@ class ExternalAuthCommand(RESTCommand):
 
     def update_config(self, auth_type, data):
         url = self._build_config_url(auth_type)
+        headers = dict(self._rw_headers)
 
-        r = self.session.put(url, headers=self._rw_headers, json=data)
+        tenant_uuid = tenant_uuid or self._client.tenant()
+        if tenant_uuid:
+            headers['Wazo-Tenant'] = tenant_uuid
+
+        r = self.session.put(url, headers=headers, json=data)
         if r.status_code != 200:
             self.raise_from_response(r)
 
