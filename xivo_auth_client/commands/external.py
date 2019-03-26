@@ -96,7 +96,7 @@ class ExternalAuthCommand(RESTCommand):
 
         return r.json()
 
-    def update_config(self, auth_type, data):
+    def update_config(self, auth_type, data, tenant_uuid=None):
         url = self._build_config_url(auth_type)
         headers = dict(self._rw_headers)
 
