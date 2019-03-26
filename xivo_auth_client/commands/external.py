@@ -105,10 +105,8 @@ class ExternalAuthCommand(RESTCommand):
             headers['Wazo-Tenant'] = tenant_uuid
 
         r = self.session.put(url, headers=headers, json=data)
-        if r.status_code != 200:
+        if r.status_code != 204:
             self.raise_from_response(r)
-
-        return r.json()
 
     def _build_url(self, auth_type, user_uuid):
         return '/'.join([self.base_url, user_uuid, 'external', auth_type])
