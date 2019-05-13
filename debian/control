@@ -1,4 +1,4 @@
-Source: xivo-auth-client
+Source: wazo-auth-client
 Section: python
 Priority: extra
 Maintainer: Wazo Maintainers <dev@wazo.community>
@@ -13,7 +13,7 @@ Standards-Version: 3.9.6
 X-Python-Version: >= 2.7
 X-Python3-Version: >= 3.4
 
-Package: xivo-auth-client
+Package: wazo-auth-client
 Architecture: all
 Section: python
 Depends:
@@ -22,11 +22,11 @@ Depends:
  xivo-lib-rest-client,
  python-requests,
  python-stevedore
-Description: xivo-auth client library - Python 2
+Description: wazo-auth client library - Python 2
  Wazo is a system based on a powerful IPBX, to bring an easy to
  install solution for telephony and related services.
 
-Package: xivo-auth-client-python3
+Package: wazo-auth-client-python3
 Architecture: all
 Section: python
 Depends:
@@ -35,6 +35,6 @@ Depends:
  xivo-lib-rest-client-python3,
  python3-requests,
  python3-stevedore
-Description: xivo-auth client library - Python 3
+Description: wazo-auth client library - Python 3
  Wazo is a system based on a powerful IPBX, to bring an easy to
  install solution for telephony and related services.

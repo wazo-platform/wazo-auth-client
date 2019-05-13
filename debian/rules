@@ -1,9 +1,9 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 
-export PYBUILD_NAME=xivo_auth_client
-export PYBUILD_DESTDIR_python2=debian/xivo-auth-client/
-export PYBUILD_DESTDIR_python3=debian/xivo-auth-client-python3/
+export PYBUILD_NAME=wazo_auth_client
+export PYBUILD_DESTDIR_python2=debian/wazo-auth-client/
+export PYBUILD_DESTDIR_python3=debian/wazo-auth-client-python3/
 export PYBUILD_DISABLE=test
 
 %:

@@ -1,14 +1,14 @@
-xivo-auth-client
+wazo-auth-client
 ================
 
-A python library to connect to xivo-auth. HTTPS is used by default. Certificates
+A python library to connect to wazo-auth. HTTPS is used by default. Certificates
 are verified by default: if you want to omit the check or use a different CA
 bundle, use the verify_certificate argument when instantiating the client.
 
 Usage:
 
 ```python
-from xivo_auth_client import Client
+from wazo_auth_client import Client
 
 c = Client('localhost', username='alice', password='alice')
 
@@ -255,7 +255,7 @@ c.external.list('<user_uuid>', search='<search term>', limit=5, offset=10, order
 
 # To use a given certificate file
 
-from xivo_auth_client import Client
+from wazo_auth_client import Client
 
 c = Client('localhost', username='alice', password='alice', verify_certificate='</path/to/trusted/certificate>')
 

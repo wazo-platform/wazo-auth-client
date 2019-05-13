@@ -1,5 +1,5 @@
-xivo-auth-client (0.1) xivo-dev; urgency=low
+wazo-auth-client (0.1) wazo-dev-stretch; urgency=medium
 
   * Initial release.
 
- -- Sylvain boily <sboily@avencall.com>  Thu, 04 Jun 2015 13:10:00 -0400
+ -- Wazo Maintainers <dev+pkg@wazo.community>  Mon, 13 May 2019 14:46:58 -0400
