@@ -128,6 +128,14 @@ class UsersCommand(RESTCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
+    def remove_session(self, user_uuid, session_uuid):
+        url = '{}/{}/sessions/{}'.format(self.base_url, user_uuid, session_uuid)
+
+        r = self.session.delete(url, headers=self._ro_headers)
+
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
     def request_confirmation_email(self, user_uuid, email_uuid):
         url = '{}/{}/emails/{}/confirm'.format(self.base_url, user_uuid, email_uuid)
 

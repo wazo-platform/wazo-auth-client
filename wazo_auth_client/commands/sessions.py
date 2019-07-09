@@ -22,3 +22,15 @@ class SessionsCommand(RESTCommand):
             self.raise_from_response(r)
 
         return r.json()
+
+    def delete(self, session_uuid, tenant_uuid=None):
+        headers = dict(self._ro_headers)
+        if tenant_uuid:
+            headers['Wazo-Tenant'] = tenant_uuid
+
+        url = '{}/{}'.format(self.base_url, session_uuid)
+
+        r = self.session.delete(url, headers=headers)
+
+        if r.status_code != 204:
+            self.raise_from_response(r)
