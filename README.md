@@ -233,7 +233,7 @@ c.sessions.delete(<session_uuid>)
 c.users.get_sessions(<user_uuid>)
 
 # Removing a session from a user
-c.users.remove_sessions(<user_uuid>, <session_uuid>)
+c.users.remove_session(<user_uuid>, <session_uuid>)
 
 
 # Tenants
