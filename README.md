@@ -34,13 +34,13 @@ c.token.get(token_data['token'])
  u'xivo_user_uuid': u'5cdff4a3-24a3-494f-8d32-9c8695e868f9',
  u'acls': [u'dird']}
 
-## ACL validation
+# ACL validation
 c.token.get(token_data['token'], required_acls='foobar')  # 403
 
 c.token.is_valid(token_data['token'], required_acl='foobar')
 False
 
-## Tenant validation
+# Tenant validation
 c.token.get(token_data['token'], tenant='alice-tenant-uuid')
 {u'expires_at': u'2015-06-04T09:49:30.449625',
  u'issued_at': u'2015-06-04T08:49:30.449607',
@@ -52,7 +52,7 @@ c.token.get(token_data['token'], tenant='alice-tenant-uuid')
 c.token.is_valid(token_data['token'], tenant='alice-tenant-uuid')
 True
 
-## Token revocation
+# Token revocation
 c.token.revoke(token_data['token'])
 
 c.token.is_valid(token_data['token'])
