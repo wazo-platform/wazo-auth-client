@@ -226,8 +226,14 @@ c.users.get_groups(<user_uuid>)
 # Listing sessions
 c.sessions.list(limit=10, offset=20)
 
+# Deleting session
+c.sessions.delete(<session_uuid>)
+
 # List all sessions a user belongs to
 c.users.get_sessions(<user_uuid>)
+
+# Removing a session from a user
+c.users.remove_session(<user_uuid>, <session_uuid>)
 
 
 # Tenants
