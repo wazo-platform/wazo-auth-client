@@ -9,18 +9,39 @@ class TokenCommand(RESTCommand):
 
     resource = 'token'
     _ro_headers = {'Accept': 'application/json'}
-    _rw_headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
+    _rw_headers = {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'User-Agent': 'Wazo Python auth client',
+    }
 
-    def new(self, backend=None, expiration=None, session_type=None):
+    def new(
+            self,
+            backend=None,
+            expiration=None,
+            session_type=None,
+            user_agent=None,
+            access_type=None,
+            client_id=None,
+            refresh_token=None,
+    ):
         data = {}
         if backend:
             data['backend'] = backend
         if expiration:
             data['expiration'] = expiration
+        if client_id:
+            data['client_id'] = client_id
+        if refresh_token:
+            data['refresh_token'] = refresh_token
+        if access_type:
+            data['access_type'] = access_type
 
         headers = dict(self._rw_headers)
         if session_type:
             headers['Wazo-Session-Type'] = session_type
+        if user_agent:
+            headers['User-Agent'] = user_agent
 
         r = self.session.post(self.base_url, headers=headers, json=data)
 
