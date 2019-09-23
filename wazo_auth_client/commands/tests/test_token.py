@@ -29,5 +29,5 @@ class TestTokenList(TestTokenCommand):
 
         headers = {'Accept': 'application/json'}
         self.session.get.assert_called_once_with(
-            'https://host:9497/0.1/users/me/tokens', headers=headers, params={},
+            'https://host:9497/0.1/users/me/tokens', headers=headers, params={}
         )

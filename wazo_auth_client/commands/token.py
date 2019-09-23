@@ -16,14 +16,14 @@ class TokenCommand(RESTCommand):
     }
 
     def new(
-            self,
-            backend=None,
-            expiration=None,
-            session_type=None,
-            user_agent=None,
-            access_type=None,
-            client_id=None,
-            refresh_token=None,
+        self,
+        backend=None,
+        expiration=None,
+        session_type=None,
+        user_agent=None,
+        access_type=None,
+        client_id=None,
+        refresh_token=None,
     ):
         data = {}
         if backend:
