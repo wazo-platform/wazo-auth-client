@@ -22,7 +22,7 @@ class TestTokenCommand(TestCase):
 
 class TestTokenList(TestTokenCommand):
     def test_that_the_user_uuid_is_a_string(self):
-        with raises(TypeError, match='user_uuid must be a string'):
+        with raises(TypeError, match='user_uuid cannot be None'):
             self.command.list()
 
         self.command.list(user_uuid='me')

@@ -89,7 +89,7 @@ class TokenCommand(RESTCommand):
 
     def list(self, user_uuid=None, **kwargs):
         if user_uuid is None:
-            raise TypeError('user_uuid must be a string')
+            raise TypeError('user_uuid cannot be None')
 
         headers = dict(self._ro_headers)
         tenant_uuid = kwargs.pop('tenant_uuid', self._client.tenant())
