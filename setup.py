@@ -9,16 +9,11 @@ from setuptools import find_packages
 setup(
     name='wazo_auth_client',
     version='0.1',
-
     description='a simple client library for the wazo-auth HTTP interface',
-
     author='Wazo Authors',
     author_email='dev@wazo.community',
-
     url='http://wazo.community',
-
     packages=find_packages(),
-
     entry_points={
         'auth_client.commands': [
             'admin = wazo_auth_client.commands.admin:AdminCommand',
@@ -32,6 +27,6 @@ setup(
             'tenants = wazo_auth_client.commands.tenants:TenantsCommand',
             'users = wazo_auth_client.commands.users:UsersCommand',
             'sessions = wazo_auth_client.commands.sessions:SessionsCommand',
-        ],
-    }
+        ]
+    },
 )

@@ -58,6 +58,23 @@ c.token.revoke(token_data['token'])
 c.token.is_valid(token_data['token'])
 False
 
+# Refresh tokens
+
+# When creating a token use the `client_id` and `access_type` `offline` to get a
+# refresh token with your "access token"
+client_id = 'my-app'
+token_data = c.token.new('wazo_user', expiration=3600, access_type='offline', client_id='my-app')
+refresh_token = token_data['refresh_token']
+
+# Creating an access token from a refresh token
+# Can be created without knowing the username/password
+# The client_id must match the one supplied at the refresh token creation
+token_data = c.token.new('wazo_user', expiration=3600, refresh_token=refresh_token, client_id='my-app')
+
+# Listing your refresh tokens
+c.token.list(user_uuid='me')
+c.token.list(user_uuid='<user_uuid>', order='created_at', direction='desc', limit=10, offset=5)
+
 c.backends.list()
 ['wazo_user']
 

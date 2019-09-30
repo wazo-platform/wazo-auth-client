@@ -16,14 +16,14 @@ class TokenCommand(RESTCommand):
     }
 
     def new(
-            self,
-            backend=None,
-            expiration=None,
-            session_type=None,
-            user_agent=None,
-            access_type=None,
-            client_id=None,
-            refresh_token=None,
+        self,
+        backend=None,
+        expiration=None,
+        session_type=None,
+        user_agent=None,
+        access_type=None,
+        client_id=None,
+        refresh_token=None,
     ):
         data = {}
         if backend:
@@ -86,3 +86,20 @@ class TokenCommand(RESTCommand):
             self.raise_from_response(r)
 
         return r.json()['data']
+
+    def list(self, user_uuid=None, **kwargs):
+        if user_uuid is None:
+            raise TypeError('user_uuid cannot be None')
+
+        headers = dict(self._ro_headers)
+        tenant_uuid = kwargs.pop('tenant_uuid', self._client.tenant())
+        if tenant_uuid:
+            headers['Wazo-Tenant'] = tenant_uuid
+
+        url = self._client.url('users', user_uuid, 'tokens')
+
+        r = self.session.get(url, headers=headers, params=kwargs)
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()

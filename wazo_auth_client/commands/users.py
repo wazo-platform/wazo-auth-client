@@ -86,11 +86,7 @@ class UsersCommand(RESTCommand):
         if tenant_uuid:
             headers['Wazo-Tenant'] = tenant_uuid
 
-        r = self.session.get(
-            self.base_url,
-            headers=headers,
-            params=kwargs,
-        )
+        r = self.session.get(self.base_url, headers=headers, params=kwargs)
 
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -159,7 +155,9 @@ class UsersCommand(RESTCommand):
         if token:
             self.session.headers['X-Auth-Token'] = token
 
-        r = self.session.post(url, headers=self._rw_headers, params=query_string, json=body)
+        r = self.session.post(
+            url, headers=self._rw_headers, params=query_string, json=body
+        )
 
         if r.status_code != 204:
             self.raise_from_response(r)

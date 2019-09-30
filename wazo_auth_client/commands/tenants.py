@@ -72,11 +72,7 @@ class TenantsCommand(RESTCommand):
         if tenant_uuid:
             headers['Wazo-Tenant'] = tenant_uuid
 
-        r = self.session.get(
-            self.base_url,
-            headers=headers,
-            params=kwargs,
-        )
+        r = self.session.get(self.base_url, headers=headers, params=kwargs)
 
         if r.status_code != 200:
             self.raise_from_response(r)
