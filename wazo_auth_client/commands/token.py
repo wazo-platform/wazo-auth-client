@@ -50,6 +50,18 @@ class TokenCommand(RESTCommand):
 
         return r.json()['data']
 
+    def delete(self, user_uuid, refresh_token_uuid, tenant_uuid=None):
+        headers = dict(self._rw_headers)
+        tenant_uuid = tenant_uuid or self._client.tenant()
+        if tenant_uuid:
+            headers['Wazo-Tenant'] = tenant_uuid
+
+        url = self._client.url('users', user_uuid, 'tokens', refresh_token_uuid)
+
+        r = self.session.delete(url, headers=headers)
+        if r.status_code != 204:
+            self.raise_from_response(r)
+
     def revoke(self, token):
         url = '{base_url}/{token}'.format(base_url=self.base_url, token=token)
 
