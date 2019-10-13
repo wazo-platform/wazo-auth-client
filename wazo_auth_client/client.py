@@ -9,7 +9,7 @@ from wazo_lib_rest_client.client import BaseClient
 
 class AuthClient(BaseClient):
 
-    namespace = 'auth_client.commands'
+    namespace = 'wazo_auth_client.commands'
 
     def __init__(
         self,

@@ -15,7 +15,7 @@ setup(
     url='http://wazo.community',
     packages=find_packages(),
     entry_points={
-        'auth_client.commands': [
+        'wazo_auth_client.commands': [
             'admin = wazo_auth_client.commands.admin:AdminCommand',
             'emails = wazo_auth_client.commands.emails:EmailsCommand',
             'external = wazo_auth_client.commands.external:ExternalAuthCommand',
