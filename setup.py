@@ -19,7 +19,6 @@ setup(
             'admin = wazo_auth_client.commands.admin:AdminCommand',
             'emails = wazo_auth_client.commands.emails:EmailsCommand',
             'external = wazo_auth_client.commands.external:ExternalAuthCommand',
-            'init = wazo_auth_client.commands.init:InitCommand',
             'token = wazo_auth_client.commands.token:TokenCommand',
             'backends = wazo_auth_client.commands.backends:BackendsCommand',
             'groups = wazo_auth_client.commands.groups:GroupsCommand',
