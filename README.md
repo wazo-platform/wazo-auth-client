@@ -79,6 +79,9 @@ c.token.list(user_uuid='<user_uuid>', order='created_at', direction='desc', limi
 c.token.delete(user_uuid='me', client_id=client_id)
 c.token.delete(user_uuid='<user_uuid>', client_id=client_id)
 
+# List all refresh tokens
+c.refresh_tokens.list(order='created_at', direction='desc', limit=10, offset=5)
+
 c.backends.list()
 ['wazo_user']
 

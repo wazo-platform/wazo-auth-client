@@ -23,6 +23,7 @@ setup(
             'backends = wazo_auth_client.commands.backends:BackendsCommand',
             'groups = wazo_auth_client.commands.groups:GroupsCommand',
             'policies = wazo_auth_client.commands.policies:PoliciesCommand',
+            'refresh_tokens = wazo_auth_client.commands.refresh_tokens:RefreshTokenCommand',
             'tenants = wazo_auth_client.commands.tenants:TenantsCommand',
             'users = wazo_auth_client.commands.users:UsersCommand',
             'sessions = wazo_auth_client.commands.sessions:SessionsCommand',
