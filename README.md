@@ -283,6 +283,9 @@ c.external.get('<auth_service>', '<user_uuid>')
 c.external.delete('<auth_service>', '<user_uuid>')
 c.external.list('<user_uuid>', search='<search term>', limit=5, offset=10, order='type', direction='asc')
 
+# check the current status of wazo-auth
+c.status.check()
+
 # To use a given certificate file
 
 from wazo_auth_client import Client
