@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2019-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from unittest import TestCase
@@ -13,7 +13,7 @@ from ..token import TokenCommand
 
 class TestTokenCommand(TestCase):
     def setUp(self):
-        self.client = Client('host')
+        self.client = Client('host', port='9497', prefix=None, https=False)
         self.client.session = Mock()
         self.session = self.client.session.return_value
 
@@ -29,5 +29,5 @@ class TestTokenList(TestTokenCommand):
 
         headers = {'Accept': 'application/json'}
         self.session.get.assert_called_once_with(
-            'https://host:9497/0.1/users/me/tokens', headers=headers, params={}
+            'http://host:9497/0.1/users/me/tokens', headers=headers, params={}
         )
