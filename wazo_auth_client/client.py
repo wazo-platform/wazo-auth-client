@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import requests
@@ -14,19 +14,19 @@ class AuthClient(BaseClient):
     def __init__(
         self,
         host,
-        port=9497,
+        port=443,
+        prefix='/api/auth',
         version='0.1',
         username=None,
         password=None,
-        verify_certificate=True,
         **kwargs
     ):
         kwargs.pop('key_file', None)
         super(AuthClient, self).__init__(
             host=host,
             port=port,
+            prefix=prefix,
             version=version,
-            verify_certificate=verify_certificate,
             **kwargs
         )
         self.username = username
