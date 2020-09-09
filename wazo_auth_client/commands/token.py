@@ -83,6 +83,22 @@ class TokenCommand(RESTCommand):
 
         self.raise_from_response(r)
 
+    def check_scopes(self, token, scopes, tenant=None):
+        data = {'scopes': scopes}
+        if tenant:
+            data['tenant_uuid'] = tenant
+
+        url = '{base_url}/{token}/scopes/check'.format(
+            base_url=self.base_url, token=token
+        )
+
+        r = self.session.post(url, headers=self._rw_headers, json=data)
+
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()['scopes']
+
     def get(self, token, required_acl=None, tenant=None):
         params = {}
         if required_acl:
