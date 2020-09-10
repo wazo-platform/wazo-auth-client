@@ -97,7 +97,7 @@ class TokenCommand(RESTCommand):
         if r.status_code != 200:
             self.raise_from_response(r)
 
-        return r.json()['scopes']
+        return r.json()
 
     def get(self, token, required_acl=None, tenant=None):
         params = {}
