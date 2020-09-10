@@ -41,9 +41,10 @@ c.token.is_valid(token_data['token'], required_acl='foobar')
 False
 
 c.token.check_scopes(token_data['token'], ['dird', 'foobar'])
-{u'dird': True,
- u'foobar': False}
-
+{'scopes': {
+    u'dird': True,
+    u'foobar': False
+}} 
 # Tenant validation
 c.token.get(token_data['token'], tenant='alice-tenant-uuid')
 {u'expires_at': u'2015-06-04T09:49:30.449625',
@@ -57,8 +58,10 @@ c.token.is_valid(token_data['token'], tenant='alice-tenant-uuid')
 True
 
 c.token.check_scopes(token_data['token'], scopes=['dird', 'foobar'], tenant='alice-tenant-uuid')
-{u'dird': True,
- u'foobar': False}
+{'scopes': {
+    u'dird': True,
+    u'foobar': False
+}} 
 
 # Token revocation
 c.token.revoke(token_data['token'])
