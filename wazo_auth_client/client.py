@@ -23,11 +23,7 @@ class AuthClient(BaseClient):
     ):
         kwargs.pop('key_file', None)
         super(AuthClient, self).__init__(
-            host=host,
-            port=port,
-            prefix=prefix,
-            version=version,
-            **kwargs
+            host=host, port=port, prefix=prefix, version=version, **kwargs
         )
         self.username = username
         self.password = password
