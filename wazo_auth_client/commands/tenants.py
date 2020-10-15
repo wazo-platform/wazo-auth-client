@@ -19,10 +19,15 @@ class TenantsCommand(RESTCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def delete(self, tenant_uuid):
-        url = '{}/{}'.format(self.base_url, tenant_uuid)
+    def delete(self, uuid, tenant_uuid=None):
+        url = '{}/{}'.format(self.base_url, uuid)
+        headers = dict(self._ro_headers)
 
-        r = self.session.delete(url, headers=self._ro_headers)
+        tenant_uuid = tenant_uuid or self._client.tenant()
+        if tenant_uuid:
+            headers['Wazo-Tenant'] = tenant_uuid
+
+        r = self.session.delete(url, headers=headers)
 
         if r.status_code != 204:
             self.raise_from_response(r)
