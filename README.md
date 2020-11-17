@@ -103,17 +103,16 @@ c.set_token(token_data['token'])
 c.policies.new(
     'user',
     description='The default policy for users',
-    acl_templates=[
-        '{% for line in user.lines %}confd.lines.{{ line.id }}.read\n{% endfor %}',
-        'dird.me.#'
+    acl=[
+        'confd.users.me.#'
+        'dird.status.read'
     ],
     tenant_uuid='my-tenant-uuid',
 )
 {'uuid': '<the policy uuid>'
  'name': 'user',
  'description': 'The default policy for users',
- 'acl_templates': ['{% for line in user.lines %}confd.lines.{{ line.id }}.read\n{% endfor %}',
-                   'dird.me.#'],
+ 'acl': ['confd.users.me.#', 'dird.status.read'],
  'tenant_uuid': 'my-tenant-uuid'}
 
 # Get a policy by UUID
@@ -121,8 +120,7 @@ c.policies.get('<the policy uuid>')
 {'uuid': '<the policy uuid>'
  'name': 'user',
  'description': 'The default policy for users',
- 'acl_templates': ['{% for line in user.lines %}confd.lines.{{ line.id }}.read\n{% endfor %}',
-                   'dird.me.#']
+ 'acl': ['confd.users.me.#', 'dird.status.read'],
  'tenant_uuid': 'my-tenant-uuid'}
 
 # List or search policies
@@ -131,8 +129,7 @@ c.policies.list(search='user', order='name', direction='asc', limit=10, offset=0
     {'uuid': '<the policy uuid>'
      'name': 'user',
      'description': 'The default policy for users',
-     'acl_templates': ['{% for line in user.lines %}confd.lines.{{ line.id }}.read\n{% endfor %}',
-                       'dird.me.#'],
+     'acl': ['confd.users.me.#', 'dird.status.read'],
      'tenant_uuid': 'my-tenant-uuid'}
  ],
  'total': 1}
@@ -142,19 +139,19 @@ c.policies.edit('<the policy uuid>', 'user', 'A new description', ['#'])
 {'uuid': '<the policy uuid>'
  'name': 'user',
  'description': 'A new description',
- 'acl_templates': ['#'],
+ 'acl': ['#'],
  'tenant_uuid': 'my-tenant-uuid'}
 
-# Add or remove acl templates
-c.policies.remove_acl_template('<the policy uuid>', '#')
-c.policies.add_acl_template('dird.me.#')
-c.policies.add_acl_template('confd.user.{{ user.uuid }}.read')
+# Add or remove access
+c.policies.remove_access('<the policy uuid>', '#')
+c.policies.add_access('dird.status.read')
+c.policies.add_access('confd.user.me.read')
 
 c.policies.get('<the policy uuid>')
 {'uuid': '<the policy uuid>'
  'name': 'user',
  'description': 'A new description',
- 'acl_templates': ['dird.me.#', 'confd.user.{{ user.uuid }}.read'],
+ 'acl': ['dird.status.read', 'confd.users.me.read'],
  'tenant_uuid': 'my-tenant-uuid'}
 
 # delete a policy

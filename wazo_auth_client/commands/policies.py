@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2017-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2017-2020 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from six.moves.urllib.parse import quote
@@ -12,9 +12,9 @@ class PoliciesCommand(RESTCommand):
     _ro_headers = {'Accept': 'application/json'}
     _rw_headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
-    def add_acl_template(self, policy_uuid, acl_template):
-        acl_template = quote(acl_template)
-        url = '{}/{}/acl_templates/{}'.format(self.base_url, policy_uuid, acl_template)
+    def add_access(self, policy_uuid, access):
+        access = quote(access)
+        url = '{}/{}/acl/{}'.format(self.base_url, policy_uuid, access)
 
         r = self.session.put(url, headers=self._ro_headers)
 
@@ -88,9 +88,9 @@ class PoliciesCommand(RESTCommand):
 
         return r.json()
 
-    def remove_acl_template(self, policy_uuid, acl_template):
-        acl_template = quote(acl_template)
-        url = '{}/{}/acl_templates/{}'.format(self.base_url, policy_uuid, acl_template)
+    def remove_access(self, policy_uuid, access):
+        access = quote(access)
+        url = '{}/{}/acl/{}'.format(self.base_url, policy_uuid, access)
 
         r = self.session.delete(url, headers=self._ro_headers)
 
