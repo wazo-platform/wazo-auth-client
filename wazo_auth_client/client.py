@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2015-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2021 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import requests
@@ -22,6 +22,7 @@ class AuthClient(BaseClient):
         **kwargs
     ):
         kwargs.pop('key_file', None)
+        kwargs.pop('master_tenant_uuid', None)
         super(AuthClient, self).__init__(
             host=host, port=port, prefix=prefix, version=version, **kwargs
         )
