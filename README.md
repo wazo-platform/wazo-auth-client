@@ -302,3 +302,4 @@ c = Client('localhost', username='alice', password='alice', verify_certificate='
 
 token_data = c.token.new('wazo_user')
 ```
+
