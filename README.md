@@ -294,6 +294,17 @@ c.external.list('<user_uuid>', search='<search term>', limit=5, offset=10, order
 # check the current status of wazo-auth
 c.status.check()
 
+# Config
+
+config = c.config.get()
+
+config_patch = {
+    'op': 'replace',
+    'path': '/debug',
+    'value': True,
+}
+c.config.patch(config_patch)
+
 # To use a given certificate file
 
 from wazo_auth_client import Client
