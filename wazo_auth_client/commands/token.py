@@ -61,7 +61,7 @@ class TokenCommand(RESTCommand):
         headers = dict(self._rw_headers)
         tenant_uuid = tenant_uuid or self._client.tenant()
         if tenant_uuid:
-            headers['Wazo-Tenant'] = tenant_uuid
+            headers['Wazo-Tenant'] = str(tenant_uuid)
 
         url = self._client.url('users', user_uuid, 'tokens', client_id)
 
@@ -129,7 +129,7 @@ class TokenCommand(RESTCommand):
         headers = dict(self._ro_headers)
         tenant_uuid = kwargs.pop('tenant_uuid', self._client.tenant())
         if tenant_uuid:
-            headers['Wazo-Tenant'] = tenant_uuid
+            headers['Wazo-Tenant'] = str(tenant_uuid)
 
         url = self._client.url('users', user_uuid, 'tokens')
 

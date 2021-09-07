@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2017-2020 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2017-2021 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from six.moves.urllib.parse import quote
@@ -64,7 +64,7 @@ class PoliciesCommand(RESTCommand):
 
         tenant_uuid = tenant_uuid or self._client.tenant()
         if tenant_uuid:
-            headers['Wazo-Tenant'] = tenant_uuid
+            headers['Wazo-Tenant'] = str(tenant_uuid)
 
         r = self.session.get(self.base_url, headers=headers, params=kwargs)
 
@@ -78,7 +78,7 @@ class PoliciesCommand(RESTCommand):
 
         tenant_uuid = tenant_uuid or self._client.tenant()
         if tenant_uuid:
-            headers['Wazo-Tenant'] = tenant_uuid
+            headers['Wazo-Tenant'] = str(tenant_uuid)
 
         kwargs['name'] = name
         r = self.session.post(self.base_url, headers=headers, json=kwargs)

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2019-2021 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from wazo_lib_rest_client import RESTCommand
@@ -19,7 +19,7 @@ class RefreshTokenCommand(RESTCommand):
         headers = dict(self._ro_headers)
         tenant_uuid = kwargs.pop('tenant_uuid', self._client.tenant())
         if tenant_uuid:
-            headers['Wazo-Tenant'] = tenant_uuid
+            headers['Wazo-Tenant'] = str(tenant_uuid)
 
         r = self.session.get(self.base_url, headers=headers, params=kwargs)
         if r.status_code != 200:
