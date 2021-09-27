@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2017-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2017-2021 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from wazo_lib_rest_client import RESTCommand
@@ -30,7 +30,7 @@ class UsersCommand(RESTCommand):
     def delete(self, user_uuid, tenant_uuid=None):
         headers = dict(self._ro_headers)
         if tenant_uuid:
-            headers['Wazo-Tenant'] = tenant_uuid
+            headers['Wazo-Tenant'] = str(tenant_uuid)
 
         url = '{}/{}'.format(self.base_url, user_uuid)
 
@@ -43,7 +43,7 @@ class UsersCommand(RESTCommand):
         headers = dict(self._rw_headers)
         tenant_uuid = kwargs.pop('tenant_uuid', None)
         if tenant_uuid is not None:
-            headers['Wazo-Tenant'] = tenant_uuid
+            headers['Wazo-Tenant'] = str(tenant_uuid)
 
         url = '{}/{}'.format(self.base_url, user_uuid)
 
@@ -57,7 +57,7 @@ class UsersCommand(RESTCommand):
     def get(self, user_uuid, tenant_uuid=None):
         headers = dict(self._ro_headers)
         if tenant_uuid is not None:
-            headers['Wazo-Tenant'] = tenant_uuid
+            headers['Wazo-Tenant'] = str(tenant_uuid)
 
         url = '{}/{}'.format(self.base_url, user_uuid)
 
@@ -84,7 +84,7 @@ class UsersCommand(RESTCommand):
         headers = dict(self._ro_headers)
         tenant_uuid = kwargs.pop('tenant_uuid', self._client.tenant())
         if tenant_uuid:
-            headers['Wazo-Tenant'] = tenant_uuid
+            headers['Wazo-Tenant'] = str(tenant_uuid)
 
         r = self.session.get(self.base_url, headers=headers, params=kwargs)
 
@@ -97,7 +97,7 @@ class UsersCommand(RESTCommand):
         headers = dict(self._rw_headers)
         tenant_uuid = kwargs.pop('tenant_uuid', self._client.tenant())
         if tenant_uuid:
-            headers['Wazo-Tenant'] = tenant_uuid
+            headers['Wazo-Tenant'] = str(tenant_uuid)
 
         r = self.session.post(self.base_url, headers=headers, json=kwargs)
 
@@ -176,7 +176,7 @@ class UsersCommand(RESTCommand):
     def _get_relation(self, resource, user_uuid, tenant_uuid=None, **kwargs):
         headers = dict(self._ro_headers)
         if tenant_uuid is not None:
-            headers['Wazo-Tenant'] = tenant_uuid
+            headers['Wazo-Tenant'] = str(tenant_uuid)
 
         url = '{}/{}/{}'.format(self.base_url, user_uuid, resource)
 

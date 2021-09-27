@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-# Copyright 2015-2019 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2021 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
+
+import requests
 
 from wazo_lib_rest_client import RESTCommand
 
@@ -24,6 +26,8 @@ class TokenCommand(RESTCommand):
         access_type=None,
         client_id=None,
         refresh_token=None,
+        username=None,
+        password=None,
     ):
         data = {}
         if backend:
@@ -43,7 +47,10 @@ class TokenCommand(RESTCommand):
         if user_agent:
             headers['User-Agent'] = user_agent
 
-        r = self.session.post(self.base_url, headers=headers, json=data)
+        auth = self.session.auth
+        if username and password:
+            auth = requests.auth.HTTPBasicAuth(username, password)
+        r = self.session.post(self.base_url, headers=headers, json=data, auth=auth)
 
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -54,7 +61,7 @@ class TokenCommand(RESTCommand):
         headers = dict(self._rw_headers)
         tenant_uuid = tenant_uuid or self._client.tenant()
         if tenant_uuid:
-            headers['Wazo-Tenant'] = tenant_uuid
+            headers['Wazo-Tenant'] = str(tenant_uuid)
 
         url = self._client.url('users', user_uuid, 'tokens', client_id)
 
@@ -122,7 +129,7 @@ class TokenCommand(RESTCommand):
         headers = dict(self._ro_headers)
         tenant_uuid = kwargs.pop('tenant_uuid', self._client.tenant())
         if tenant_uuid:
-            headers['Wazo-Tenant'] = tenant_uuid
+            headers['Wazo-Tenant'] = str(tenant_uuid)
 
         url = self._client.url('users', user_uuid, 'tokens')
 
