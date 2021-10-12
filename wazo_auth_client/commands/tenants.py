@@ -12,96 +12,70 @@ class TenantsCommand(RESTCommand):
     _rw_headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
     def add_policy(self, tenant_uuid, policy_uuid):
+        headers = self._get_headers()
         url = '/'.join([self.base_url, tenant_uuid, 'policies', policy_uuid])
-
-        r = self.session.put(url, headers=self._ro_headers)
-
+        r = self.session.put(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def delete(self, uuid, tenant_uuid=None):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = '{}/{}'.format(self.base_url, uuid)
-        headers = dict(self._ro_headers)
-
-        tenant_uuid = tenant_uuid or self._client.tenant()
-        if tenant_uuid:
-            headers['Wazo-Tenant'] = str(tenant_uuid)
-
         r = self.session.delete(url, headers=headers)
-
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def edit(self, tenant_uuid, **kwargs):
+        headers = self._get_headers()
         url = '{}/{}'.format(self.base_url, tenant_uuid)
-
-        r = self.session.put(url, headers=self._rw_headers, json=kwargs)
-
+        r = self.session.put(url, headers=headers, json=kwargs)
         if r.status_code != 200:
             self.raise_from_response(r)
-
         return r.json()
 
     def get(self, tenant_uuid):
+        headers = self._get_headers()
         url = '{}/{}'.format(self.base_url, tenant_uuid)
-
-        r = self.session.get(url)
-
+        r = self.session.get(url, headers=headers)
         if r.status_code != 200:
             self.raise_from_response(r)
 
         return r.json()
 
     def get_policies(self, tenant_uuid, **kwargs):
+        headers = self._get_headers()
         url = '/'.join([self.base_url, tenant_uuid, 'policies'])
-
-        r = self.session.get(url, headers=self._ro_headers, params=kwargs)
-
+        r = self.session.get(url, headers=headers, params=kwargs)
         if r.status_code != 200:
             self.raise_from_response(r)
-
         return r.json()
 
     def get_users(self, tenant_uuid, **kwargs):
+        headers = self._get_headers()
         url = '{}/{}/users'.format(self.base_url, tenant_uuid)
-
-        r = self.session.get(url, headers=self._ro_headers, params=kwargs)
-
+        r = self.session.get(url, headers=headers, params=kwargs)
         if r.status_code != 200:
             self.raise_from_response(r)
-
         return r.json()
 
     def list(self, tenant_uuid=None, **kwargs):
-        headers = dict(self._ro_headers)
-        if tenant_uuid:
-            headers['Wazo-Tenant'] = str(tenant_uuid)
-
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         r = self.session.get(self.base_url, headers=headers, params=kwargs)
-
         if r.status_code != 200:
             self.raise_from_response(r)
-
         return r.json()
 
     def new(self, **kwargs):
-        headers = dict(self._rw_headers)
-
-        parent_uuid = kwargs.pop('parent_uuid', self._client.tenant())
-        if parent_uuid:
-            headers['Wazo-Tenant'] = str(parent_uuid)
-
+        parent_uuid = kwargs.pop('parent_uuid', None)
+        headers = self._get_headers(tenant_uuid=parent_uuid)
         r = self.session.post(self.base_url, headers=headers, json=kwargs)
-
         if r.status_code != 200:
             self.raise_from_response(r)
-
         return r.json()
 
     def remove_policy(self, tenant_uuid, policy_uuid):
+        headers = self._get_headers()
         url = '/'.join([self.base_url, tenant_uuid, 'policies', policy_uuid])
-
-        r = self.session.delete(url, headers=self._ro_headers)
-
+        r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)

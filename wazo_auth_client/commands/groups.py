@@ -8,57 +8,51 @@ from wazo_lib_rest_client import RESTCommand
 class GroupsCommand(RESTCommand):
 
     resource = 'groups'
-    _ro_headers = {'Accept': 'application/json'}
-    _rw_headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
     def add_policy(self, group_uuid, policy_uuid):
+        headers = self._get_headers()
         url = self._relation_url('policies', group_uuid, policy_uuid)
-
-        r = self.session.put(url, headers=self._ro_headers)
-
+        r = self.session.put(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def add_user(self, group_uuid, user_uuid):
+        headers = self._get_headers()
         url = self._relation_url('users', group_uuid, user_uuid)
-
-        r = self.session.put(url, headers=self._ro_headers)
-
+        r = self.session.put(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def delete(self, group_uuid):
+        headers = self._get_headers()
         url = '{}/{}'.format(self.base_url, group_uuid)
-
-        r = self.session.delete(url, headers=self._ro_headers)
-
+        r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def edit(self, group_uuid, **params):
+        headers = self._get_headers()
         url = '{}/{}'.format(self.base_url, group_uuid)
-
-        r = self.session.put(url, headers=self._rw_headers, json=params)
-
+        r = self.session.put(url, headers=headers, json=params)
         if r.status_code != 200:
             self.raise_from_response(r)
 
         return r.json()
 
     def get(self, group_uuid):
+        headers = self._get_headers()
         url = '{}/{}'.format(self.base_url, group_uuid)
-
-        r = self.session.get(url)
-
+        r = self.session.get(url, headers=headers)
         if r.status_code != 200:
             self.raise_from_response(r)
 
         return r.json()
 
     def get_policies(self, group_uuid, **kwargs):
+        headers = self._get_headers()
         url = '{}/{}/policies'.format(self.base_url, group_uuid)
 
-        r = self.session.get(url, headers=self._ro_headers, params=kwargs)
+        r = self.session.get(url, headers=headers, params=kwargs)
 
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -66,9 +60,10 @@ class GroupsCommand(RESTCommand):
         return r.json()
 
     def get_users(self, group_uuid, **kwargs):
+        headers = self._get_headers()
         url = '{}/{}/users'.format(self.base_url, group_uuid)
 
-        r = self.session.get(url, headers=self._ro_headers, params=kwargs)
+        r = self.session.get(url, headers=headers, params=kwargs)
 
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -76,44 +71,30 @@ class GroupsCommand(RESTCommand):
         return r.json()
 
     def list(self, **kwargs):
-        headers = dict(self._ro_headers)
-        tenant_uuid = kwargs.pop('tenant_uuid', self._client.tenant())
-        if tenant_uuid:
-            headers['Wazo-Tenant'] = str(tenant_uuid)
-
+        headers = self._get_headers(**kwargs)
         r = self.session.get(self.base_url, headers=headers, params=kwargs)
-
         if r.status_code != 200:
             self.raise_from_response(r)
-
         return r.json()
 
     def new(self, **kwargs):
-        headers = dict(self._rw_headers)
-        tenant_uuid = kwargs.pop('tenant_uuid', self._client.tenant())
-        if tenant_uuid:
-            headers['Wazo-Tenant'] = str(tenant_uuid)
-
+        headers = self._get_headers(**kwargs)
         r = self.session.post(self.base_url, headers=headers, json=kwargs)
-
         if r.status_code != 200:
             self.raise_from_response(r)
-
         return r.json()
 
     def remove_policy(self, group_uuid, policy_uuid):
+        headers = self._get_headers()
         url = self._relation_url('policies', group_uuid, policy_uuid)
-
-        r = self.session.delete(url, headers=self._ro_headers)
-
+        r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def remove_user(self, group_uuid, user_uuid):
+        headers = self._get_headers()
         url = self._relation_url('users', group_uuid, user_uuid)
-
-        r = self.session.delete(url, headers=self._ro_headers)
-
+        r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
