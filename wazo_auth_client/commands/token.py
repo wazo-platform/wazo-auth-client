@@ -10,12 +10,7 @@ from wazo_lib_rest_client import RESTCommand
 class TokenCommand(RESTCommand):
 
     resource = 'token'
-    _ro_headers = {'Accept': 'application/json'}
-    _rw_headers = {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'User-Agent': 'Wazo Python auth client',
-    }
+    _user_agent = 'Wazo Python auth client'
 
     def new(
         self,
@@ -41,7 +36,8 @@ class TokenCommand(RESTCommand):
         if access_type:
             data['access_type'] = access_type
 
-        headers = dict(self._rw_headers)
+        headers = self._get_headers()
+        headers['User-Agent'] = self._user_agent
         if session_type:
             headers['Wazo-Session-Type'] = session_type
         if user_agent:
@@ -58,21 +54,16 @@ class TokenCommand(RESTCommand):
         return r.json()['data']
 
     def delete(self, user_uuid, client_id, tenant_uuid=None):
-        headers = dict(self._rw_headers)
-        tenant_uuid = tenant_uuid or self._client.tenant()
-        if tenant_uuid:
-            headers['Wazo-Tenant'] = str(tenant_uuid)
-
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = self._client.url('users', user_uuid, 'tokens', client_id)
-
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def revoke(self, token):
+        headers = self._get_headers()
         url = '{base_url}/{token}'.format(base_url=self.base_url, token=token)
-
-        self.session.delete(url, headers=self._ro_headers)
+        self.session.delete(url, headers=headers)
 
     def is_valid(self, token, required_acl=None, tenant=None):
         params = {}
@@ -81,13 +72,11 @@ class TokenCommand(RESTCommand):
         if tenant:
             params['tenant'] = tenant
 
+        headers = self._get_headers()
         url = '{base_url}/{token}'.format(base_url=self.base_url, token=token)
-
-        r = self.session.head(url, headers=self._ro_headers, params=params)
-
+        r = self.session.head(url, headers=headers, params=params)
         if r.status_code in (204, 403, 404):
             return r.status_code == 204
-
         self.raise_from_response(r)
 
     def check_scopes(self, token, scopes, tenant=None):
@@ -95,15 +84,14 @@ class TokenCommand(RESTCommand):
         if tenant:
             data['tenant_uuid'] = tenant
 
+        headers = self._get_headers()
+        headers['User-Agent'] = self._user_agent
         url = '{base_url}/{token}/scopes/check'.format(
             base_url=self.base_url, token=token
         )
-
-        r = self.session.post(url, headers=self._rw_headers, json=data)
-
+        r = self.session.post(url, headers=headers, json=data)
         if r.status_code != 200:
             self.raise_from_response(r)
-
         return r.json()
 
     def get(self, token, required_acl=None, tenant=None):
@@ -113,28 +101,20 @@ class TokenCommand(RESTCommand):
         if tenant:
             params['tenant'] = tenant
 
+        headers = self._get_headers()
         url = '{base_url}/{token}'.format(base_url=self.base_url, token=token)
-
-        r = self.session.get(url, headers=self._ro_headers, params=params)
-
+        r = self.session.get(url, headers=headers, params=params)
         if r.status_code != 200:
             self.raise_from_response(r)
-
         return r.json()['data']
 
     def list(self, user_uuid=None, **kwargs):
         if user_uuid is None:
             raise TypeError('user_uuid cannot be None')
 
-        headers = dict(self._ro_headers)
-        tenant_uuid = kwargs.pop('tenant_uuid', self._client.tenant())
-        if tenant_uuid:
-            headers['Wazo-Tenant'] = str(tenant_uuid)
-
+        headers = self._get_headers(**kwargs)
         url = self._client.url('users', user_uuid, 'tokens')
-
         r = self.session.get(url, headers=headers, params=kwargs)
         if r.status_code != 200:
             self.raise_from_response(r)
-
         return r.json()
