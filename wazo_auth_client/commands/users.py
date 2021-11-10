@@ -11,8 +11,8 @@ class UsersCommand(RESTCommand):
     _ro_headers = {'Accept': 'application/json'}
     _rw_headers = {'Accept': 'application/json', 'Content-Type': 'application/json'}
 
-    def add_policy(self, user_uuid, policy_uuid):
-        headers = self._get_headers()
+    def add_policy(self, user_uuid, policy_uuid, tenant_uuid=None):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = '{}/{}/policies/{}'.format(self.base_url, user_uuid, policy_uuid)
         r = self.session.put(url, headers=headers)
         if r.status_code != 204:
@@ -82,8 +82,8 @@ class UsersCommand(RESTCommand):
             self.raise_from_response(r)
         return r.json()
 
-    def remove_policy(self, user_uuid, policy_uuid):
-        headers = self._get_headers()
+    def remove_policy(self, user_uuid, policy_uuid, tenant_uuid=None):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = '{}/{}/policies/{}'.format(self.base_url, user_uuid, policy_uuid)
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:

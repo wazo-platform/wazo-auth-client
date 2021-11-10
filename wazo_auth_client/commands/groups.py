@@ -9,8 +9,8 @@ class GroupsCommand(RESTCommand):
 
     resource = 'groups'
 
-    def add_policy(self, group_uuid, policy_uuid):
-        headers = self._get_headers()
+    def add_policy(self, group_uuid, policy_uuid, tenant_uuid=None):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = self._relation_url('policies', group_uuid, policy_uuid)
         r = self.session.put(url, headers=headers)
         if r.status_code != 204:
@@ -48,8 +48,8 @@ class GroupsCommand(RESTCommand):
 
         return r.json()
 
-    def get_policies(self, group_uuid, **kwargs):
-        headers = self._get_headers()
+    def get_policies(self, group_uuid, tenant_uuid=None, **kwargs):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = '{}/{}/policies'.format(self.base_url, group_uuid)
 
         r = self.session.get(url, headers=headers, params=kwargs)
@@ -84,8 +84,8 @@ class GroupsCommand(RESTCommand):
             self.raise_from_response(r)
         return r.json()
 
-    def remove_policy(self, group_uuid, policy_uuid):
-        headers = self._get_headers()
+    def remove_policy(self, group_uuid, policy_uuid, tenant_uuid=None):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = self._relation_url('policies', group_uuid, policy_uuid)
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
