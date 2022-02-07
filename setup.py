@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# Copyright 2015-2021 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2022 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from setuptools import setup
@@ -22,6 +22,7 @@ setup(
             'emails = wazo_auth_client.commands.emails:EmailsCommand',
             'external = wazo_auth_client.commands.external:ExternalAuthCommand',
             'groups = wazo_auth_client.commands.groups:GroupsCommand',
+            'ldap_config = wazo_auth_client.commands.ldap_config:LDAPBackendConfigCommand',
             'policies = wazo_auth_client.commands.policies:PoliciesCommand',
             'refresh_tokens = wazo_auth_client.commands.refresh_tokens:RefreshTokenCommand',
             'sessions = wazo_auth_client.commands.sessions:SessionsCommand',
