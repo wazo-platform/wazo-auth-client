@@ -28,3 +28,11 @@ class LDAPBackendConfigCommand(RESTCommand):
             self.raise_from_response(r)
 
         return r.json()
+
+    def delete(self, tenant_uuid=None):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
+        url = '{}/ldap'.format(self.base_url)
+        r = self.session.delete(url, headers=headers)
+
+        if r.status_code != 204:
+            self.raise_from_response(r)

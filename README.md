@@ -324,4 +324,7 @@ ldap_config = c.ldap_config.get(tenant_uuid=<tenant_uuid>)
 
 c.ldap_config.create_or_update(ldap_config)  # Uses the token's tenant
 c.ldap_config.create_or_update(ldap_config, tenant_uuid=<tenant_uuid>)
+
+c.ldap_config.delete()  # Uses the token's tenant
+c.ldap_config.delete(tenant_uuid=<tenant_uuid>)
 ```
