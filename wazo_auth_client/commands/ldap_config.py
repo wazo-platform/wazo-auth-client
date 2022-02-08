@@ -19,7 +19,17 @@ class LDAPBackendConfigCommand(RESTCommand):
 
         return r.json()
 
-    def create_or_update(self, ldap_config, tenant_uuid=None):
+    def create(self, ldap_config, tenant_uuid=None):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
+        url = '{}/ldap'.format(self.base_url)
+        r = self.session.post(url, headers=headers, json=ldap_config)
+
+        if r.status_code != 200:
+            self.raise_from_response(r)
+
+        return r.json()
+
+    def update(self, ldap_config, tenant_uuid=None):
         headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = '{}/ldap'.format(self.base_url)
         r = self.session.put(url, headers=headers, json=ldap_config)
