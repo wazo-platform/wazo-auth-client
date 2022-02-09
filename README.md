@@ -44,7 +44,7 @@ c.token.check_scopes(token_data['token'], ['dird', 'foobar'])
 {'scopes': {
     u'dird': True,
     u'foobar': False
-}} 
+}}
 # Tenant validation
 c.token.get(token_data['token'], tenant='alice-tenant-uuid')
 {u'expires_at': u'2015-06-04T09:49:30.449625',
@@ -312,4 +312,24 @@ from wazo_auth_client import Client
 c = Client('localhost', username='alice', password='alice', verify_certificate='</path/to/trusted/certificate>')
 
 token_data = c.token.new('wazo_user')
+
+# LDAP backend configuration
+
+# Get the LDAP configuration
+
+ldap_config = c.ldap_config.get()  # Uses the token's tenant
+ldap_config = c.ldap_config.get(tenant_uuid=<tenant_uuid>)
+
+# Create the LDAP configuration
+
+c.ldap_config.create(ldap_config)  # Uses the token's tenant
+c.ldap_config.create(ldap_config, tenant_uuid=<tenant_uuid>)
+
+# Update the LDAP configuration
+
+c.ldap_config.update(ldap_config)  # Uses the token's tenant
+c.ldap_config.update(ldap_config, tenant_uuid=<tenant_uuid>)
+
+c.ldap_config.delete()  # Uses the token's tenant
+c.ldap_config.delete(tenant_uuid=<tenant_uuid>)
 ```

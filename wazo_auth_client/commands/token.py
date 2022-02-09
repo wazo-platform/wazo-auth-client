@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2015-2021 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2022 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import requests
@@ -23,6 +23,7 @@ class TokenCommand(RESTCommand):
         refresh_token=None,
         username=None,
         password=None,
+        tenant_id=None,
     ):
         data = {}
         if backend:
@@ -35,6 +36,8 @@ class TokenCommand(RESTCommand):
             data['refresh_token'] = refresh_token
         if access_type:
             data['access_type'] = access_type
+        if tenant_id:
+            data['tenant_id'] = tenant_id
 
         headers = self._get_headers()
         headers['User-Agent'] = self._user_agent
