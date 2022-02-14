@@ -320,11 +320,6 @@ token_data = c.token.new('wazo_user')
 ldap_config = c.ldap_config.get()  # Uses the token's tenant
 ldap_config = c.ldap_config.get(tenant_uuid=<tenant_uuid>)
 
-# Create the LDAP configuration
-
-c.ldap_config.create(ldap_config)  # Uses the token's tenant
-c.ldap_config.create(ldap_config, tenant_uuid=<tenant_uuid>)
-
 # Update the LDAP configuration
 
 c.ldap_config.update(ldap_config)  # Uses the token's tenant
