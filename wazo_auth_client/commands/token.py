@@ -4,6 +4,7 @@
 
 import requests
 
+from ..exceptions import InvalidTokenException, MissingPermissionsTokenException
 from wazo_lib_rest_client import RESTCommand
 
 
@@ -80,6 +81,11 @@ class TokenCommand(RESTCommand):
         r = self.session.head(url, headers=headers, params=params)
         if r.status_code in (204, 403, 404):
             return r.status_code == 204
+        elif r.status_code == 401:
+            if not token:
+                raise InvalidTokenException(token, required_acl, 'not_found_or_expired')
+            else:
+                raise MissingPermissionsTokenException(token, required_acl, 'missing_permission')
         self.raise_from_response(r)
 
     def check_scopes(self, token, scopes, tenant=None):
