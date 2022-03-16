@@ -85,7 +85,9 @@ class TokenCommand(RESTCommand):
             if not token:
                 raise InvalidTokenException(token, required_acl, 'not_found_or_expired')
             else:
-                raise MissingPermissionsTokenException(token, required_acl, 'missing_permission')
+                raise MissingPermissionsTokenException(
+                    token, required_acl, 'missing_permission'
+                )
         self.raise_from_response(r)
 
     def check_scopes(self, token, scopes, tenant=None):
