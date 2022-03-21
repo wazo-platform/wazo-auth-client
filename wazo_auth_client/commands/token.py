@@ -83,8 +83,7 @@ class TokenCommand(RESTCommand):
         if r.status_code == 204:
             return True
         elif r.status_code == 404:
-            if not token or self.expiration == 0:
-                raise InvalidTokenException(token, required_acl, 'not_found_or_expired')
+            raise InvalidTokenException(token, required_acl, 'not_found_or_expired')
         elif r.status_code == 403:
             raise MissingPermissionsTokenException(
                 token, required_acl, 'missing_permission'
