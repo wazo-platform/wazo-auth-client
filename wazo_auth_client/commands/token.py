@@ -83,11 +83,9 @@ class TokenCommand(RESTCommand):
         if r.status_code == 204:
             return True
         elif r.status_code == 404:
-            raise InvalidTokenException(token, required_acl, 'not_found_or_expired')
+            raise InvalidTokenException()
         elif r.status_code == 403:
-            raise MissingPermissionsTokenException(
-                token, required_acl, 'missing_permission'
-            )
+            raise MissingPermissionsTokenException()
         self.raise_from_response(r)
 
     def check_scopes(self, token, scopes, tenant=None):
