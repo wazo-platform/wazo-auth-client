@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Copyright 2017-2021 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2017-2022 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from wazo_lib_rest_client import RESTCommand
@@ -39,8 +39,8 @@ class ExternalAuthCommand(RESTCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def get(self, auth_type, user_uuid):
-        headers = self._get_headers()
+    def get(self, auth_type, user_uuid, tenant_uuid=None):
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = self._build_url(auth_type, user_uuid)
         r = self.session.get(url, headers=headers)
         if r.status_code != 200:
