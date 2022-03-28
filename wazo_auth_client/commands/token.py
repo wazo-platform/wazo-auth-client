@@ -70,7 +70,7 @@ class TokenCommand(RESTCommand):
         url = '{base_url}/{token}'.format(base_url=self.base_url, token=token)
         self.session.delete(url, headers=headers)
 
-    def is_valid(self, token, required_acl=None, tenant=None):
+    def check(self, token, required_acl=None, tenant=None):
         params = {}
         if required_acl:
             params['scope'] = required_acl
@@ -86,6 +86,20 @@ class TokenCommand(RESTCommand):
             raise InvalidTokenException()
         elif r.status_code == 403:
             raise MissingPermissionsTokenException()
+        self.raise_from_response(r)
+
+    def is_valid(self, token, required_acl=None, tenant=None):
+        params = {}
+        if required_acl:
+            params['scope'] = required_acl
+        if tenant:
+            params['tenant'] = tenant
+
+        headers = self._get_headers()
+        url = '{base_url}/{token}'.format(base_url=self.base_url, token=token)
+        r = self.session.head(url, headers=headers, params=params)
+        if r.status_code in (204, 403, 404):
+            return r.status_code == 204
         self.raise_from_response(r)
 
     def check_scopes(self, token, scopes, tenant=None):
