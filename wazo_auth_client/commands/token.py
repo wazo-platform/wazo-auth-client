@@ -26,6 +26,7 @@ class TokenCommand(RESTCommand):
         username=None,
         password=None,
         tenant_id=None,
+        domain_name=None,
     ):
         data = {}
         if backend:
@@ -40,6 +41,8 @@ class TokenCommand(RESTCommand):
             data['access_type'] = access_type
         if tenant_id:
             data['tenant_id'] = tenant_id
+        if domain_name:
+            data['domain_name'] = domain_name
 
         headers = self._get_headers()
         headers['User-Agent'] = self._user_agent
