@@ -290,6 +290,7 @@ c.external.update('<auth_service>', '<user_uuid>', {'key': 'value'})
 c.external.get('<auth_service>', '<user_uuid>')
 c.external.delete('<auth_service>', '<user_uuid>')
 c.external.list('<user_uuid>', search='<search term>', limit=5, offset=10, order='type', direction='asc')
+c.external.list_connected_users('<auth_service>', limit=5, offset=10, recurse=True)
 
 # check the current status of wazo-auth
 c.status.check()
