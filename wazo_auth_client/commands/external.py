@@ -64,6 +64,14 @@ class ExternalAuthCommand(RESTCommand):
             self.raise_from_response(r)
         return r.json()
 
+    def list_connected_users(self, auth_type, **kwargs):
+        headers = self._get_headers()
+        url = '/'.join([self._client.url('external'), auth_type, 'users'])
+        r = self.session.get(url, headers=headers, params=kwargs)
+        if r.status_code != 200:
+            self.raise_from_response(r)
+        return r.json()
+
     def update(self, auth_type, user_uuid, data):
         headers = self._get_headers()
         url = self._build_url(auth_type, user_uuid)
