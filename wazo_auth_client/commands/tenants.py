@@ -19,14 +19,14 @@ class TenantsCommand(RESTCommand):
 
     def delete(self, uuid, tenant_uuid=None):
         headers = self._get_headers(tenant_uuid=tenant_uuid)
-        url = '{}/{}'.format(self.base_url, uuid)
+        url = f'{self.base_url}/{uuid}'
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def edit(self, tenant_uuid, **kwargs):
         headers = self._get_headers()
-        url = '{}/{}'.format(self.base_url, tenant_uuid)
+        url = f'{self.base_url}/{tenant_uuid}'
         r = self.session.put(url, headers=headers, json=kwargs)
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -34,7 +34,7 @@ class TenantsCommand(RESTCommand):
 
     def get(self, tenant_uuid):
         headers = self._get_headers()
-        url = '{}/{}'.format(self.base_url, tenant_uuid)
+        url = f'{self.base_url}/{tenant_uuid}'
         r = self.session.get(url, headers=headers)
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -51,7 +51,7 @@ class TenantsCommand(RESTCommand):
 
     def get_users(self, tenant_uuid, **kwargs):
         headers = self._get_headers()
-        url = '{}/{}/users'.format(self.base_url, tenant_uuid)
+        url = f'{self.base_url}/{tenant_uuid}/users'
         r = self.session.get(url, headers=headers, params=kwargs)
         if r.status_code != 200:
             self.raise_from_response(r)

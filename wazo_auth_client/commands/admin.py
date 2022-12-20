@@ -10,7 +10,7 @@ class AdminCommand(RESTCommand):
 
     def update_user_emails(self, user_uuid, emails):
         headers = self._get_headers()
-        url = '{}/users/{}/emails'.format(self.base_url, user_uuid)
+        url = f'{self.base_url}/users/{user_uuid}/emails'
         body = {'emails': emails}
         r = self.session.put(url, headers=headers, json=body)
         if r.status_code != 200:

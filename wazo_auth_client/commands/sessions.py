@@ -17,7 +17,7 @@ class SessionsCommand(RESTCommand):
 
     def delete(self, session_uuid, tenant_uuid=None):
         headers = self._get_headers(tenant_uuid=tenant_uuid)
-        url = '{}/{}'.format(self.base_url, session_uuid)
+        url = f'{self.base_url}/{session_uuid}'
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)

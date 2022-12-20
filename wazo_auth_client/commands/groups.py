@@ -24,14 +24,14 @@ class GroupsCommand(RESTCommand):
 
     def delete(self, group_uuid):
         headers = self._get_headers()
-        url = '{}/{}'.format(self.base_url, group_uuid)
+        url = f'{self.base_url}/{group_uuid}'
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def edit(self, group_uuid, **params):
         headers = self._get_headers()
-        url = '{}/{}'.format(self.base_url, group_uuid)
+        url = f'{self.base_url}/{group_uuid}'
         r = self.session.put(url, headers=headers, json=params)
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -40,7 +40,7 @@ class GroupsCommand(RESTCommand):
 
     def get(self, group_uuid):
         headers = self._get_headers()
-        url = '{}/{}'.format(self.base_url, group_uuid)
+        url = f'{self.base_url}/{group_uuid}'
         r = self.session.get(url, headers=headers)
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -49,7 +49,7 @@ class GroupsCommand(RESTCommand):
 
     def get_policies(self, group_uuid, tenant_uuid=None, **kwargs):
         headers = self._get_headers(tenant_uuid=tenant_uuid)
-        url = '{}/{}/policies'.format(self.base_url, group_uuid)
+        url = f'{self.base_url}/{group_uuid}/policies'
 
         r = self.session.get(url, headers=headers, params=kwargs)
 
@@ -60,7 +60,7 @@ class GroupsCommand(RESTCommand):
 
     def get_users(self, group_uuid, **kwargs):
         headers = self._get_headers()
-        url = '{}/{}/users'.format(self.base_url, group_uuid)
+        url = f'{self.base_url}/{group_uuid}/users'
 
         r = self.session.get(url, headers=headers, params=kwargs)
 

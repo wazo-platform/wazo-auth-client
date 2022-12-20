@@ -22,14 +22,12 @@ class AuthClient(BaseClient):
     ):
         kwargs.pop('key_file', None)
         kwargs.pop('master_tenant_uuid', None)
-        super(AuthClient, self).__init__(
-            host=host, port=port, prefix=prefix, version=version, **kwargs
-        )
+        super().__init__(host=host, port=port, prefix=prefix, version=version, **kwargs)
         self.username = username
         self.password = password
 
     def session(self):
-        session = super(AuthClient, self).session()
+        session = super().session()
         if self.username and self.password:
             session.auth = requests.auth.HTTPBasicAuth(self.username, self.password)
         return session
