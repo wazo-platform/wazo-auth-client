@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-# Copyright 2017-2021 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2017-2022 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from wazo_lib_rest_client import RESTCommand
@@ -13,7 +12,7 @@ class UsersCommand(RESTCommand):
 
     def add_policy(self, user_uuid, policy_uuid, tenant_uuid=None):
         headers = self._get_headers(tenant_uuid=tenant_uuid)
-        url = '{}/{}/policies/{}'.format(self.base_url, user_uuid, policy_uuid)
+        url = f'{self.base_url}/{user_uuid}/policies/{policy_uuid}'
         r = self.session.put(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
@@ -27,14 +26,14 @@ class UsersCommand(RESTCommand):
 
     def delete(self, user_uuid, tenant_uuid=None):
         headers = self._get_headers(tenant_uuid=tenant_uuid)
-        url = '{}/{}'.format(self.base_url, user_uuid)
+        url = f'{self.base_url}/{user_uuid}'
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def edit(self, user_uuid, **kwargs):
         headers = self._get_headers(**kwargs)
-        url = '{}/{}'.format(self.base_url, user_uuid)
+        url = f'{self.base_url}/{user_uuid}'
         r = self.session.put(url, headers=headers, json=kwargs)
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -42,7 +41,7 @@ class UsersCommand(RESTCommand):
 
     def get(self, user_uuid, tenant_uuid=None):
         headers = self._get_headers(tenant_uuid=tenant_uuid)
-        url = '{}/{}'.format(self.base_url, user_uuid)
+        url = f'{self.base_url}/{user_uuid}'
         r = self.session.get(url, headers=headers)
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -76,7 +75,7 @@ class UsersCommand(RESTCommand):
 
     def register(self, **kwargs):
         headers = self._get_headers()
-        url = '{}/register'.format(self.base_url)
+        url = f'{self.base_url}/register'
         r = self.session.post(url, headers=headers, json=kwargs)
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -84,34 +83,34 @@ class UsersCommand(RESTCommand):
 
     def remove_policy(self, user_uuid, policy_uuid, tenant_uuid=None):
         headers = self._get_headers(tenant_uuid=tenant_uuid)
-        url = '{}/{}/policies/{}'.format(self.base_url, user_uuid, policy_uuid)
+        url = f'{self.base_url}/{user_uuid}/policies/{policy_uuid}'
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def remove_session(self, user_uuid, session_uuid):
         headers = self._get_headers()
-        url = '{}/{}/sessions/{}'.format(self.base_url, user_uuid, session_uuid)
+        url = f'{self.base_url}/{user_uuid}/sessions/{session_uuid}'
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def request_confirmation_email(self, user_uuid, email_uuid):
         headers = self._get_headers()
-        url = '{}/{}/emails/{}/confirm'.format(self.base_url, user_uuid, email_uuid)
+        url = f'{self.base_url}/{user_uuid}/emails/{email_uuid}/confirm'
         r = self.session.get(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def reset_password(self, **kwargs):
         headers = self._get_headers()
-        url = '{}/password/reset'.format(self.base_url)
+        url = f'{self.base_url}/password/reset'
         r = self.session.get(url, headers=headers, params=kwargs)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def set_password(self, user_uuid, password, token=None):
-        url = '{}/password/reset'.format(self.base_url)
+        url = f'{self.base_url}/password/reset'
         query_string = {'user_uuid': user_uuid}
         body = {'password': password}
         headers = self._get_headers()
@@ -124,7 +123,7 @@ class UsersCommand(RESTCommand):
 
     def update_emails(self, user_uuid, emails):
         headers = self._get_headers()
-        url = '{}/{}/emails'.format(self.base_url, user_uuid)
+        url = f'{self.base_url}/{user_uuid}/emails'
         body = {'emails': emails}
         r = self.session.put(url, headers=headers, json=body)
         if r.status_code != 200:
@@ -133,7 +132,7 @@ class UsersCommand(RESTCommand):
 
     def _get_relation(self, resource, user_uuid, tenant_uuid=None, **kwargs):
         headers = self._get_headers(tenant_uuid=tenant_uuid)
-        url = '{}/{}/{}'.format(self.base_url, user_uuid, resource)
+        url = f'{self.base_url}/{user_uuid}/{resource}'
         r = self.session.get(url, headers=headers, params=kwargs)
         if r.status_code != 200:
             self.raise_from_response(r)

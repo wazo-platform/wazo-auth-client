@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2015-2022 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
@@ -70,7 +69,7 @@ class TokenCommand(RESTCommand):
 
     def revoke(self, token):
         headers = self._get_headers()
-        url = '{base_url}/{token}'.format(base_url=self.base_url, token=token)
+        url = f'{self.base_url}/{token}'
         self.session.delete(url, headers=headers)
 
     def check(self, token, required_acl=None, tenant=None):
@@ -81,7 +80,7 @@ class TokenCommand(RESTCommand):
             params['tenant'] = tenant
 
         headers = self._get_headers()
-        url = '{base_url}/{token}'.format(base_url=self.base_url, token=token)
+        url = f'{self.base_url}/{token}'
         r = self.session.head(url, headers=headers, params=params)
         if r.status_code == 204:
             return True
@@ -99,7 +98,7 @@ class TokenCommand(RESTCommand):
             params['tenant'] = tenant
 
         headers = self._get_headers()
-        url = '{base_url}/{token}'.format(base_url=self.base_url, token=token)
+        url = f'{self.base_url}/{token}'
         r = self.session.head(url, headers=headers, params=params)
         if r.status_code in (204, 403, 404):
             return r.status_code == 204
@@ -112,9 +111,7 @@ class TokenCommand(RESTCommand):
 
         headers = self._get_headers()
         headers['User-Agent'] = self._user_agent
-        url = '{base_url}/{token}/scopes/check'.format(
-            base_url=self.base_url, token=token
-        )
+        url = f'{self.base_url}/{token}/scopes/check'
         r = self.session.post(url, headers=headers, json=data)
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -128,7 +125,7 @@ class TokenCommand(RESTCommand):
             params['tenant'] = tenant
 
         headers = self._get_headers()
-        url = '{base_url}/{token}'.format(base_url=self.base_url, token=token)
+        url = f'{self.base_url}/{token}'
         r = self.session.get(url, headers=headers, params=params)
         if r.status_code != 200:
             self.raise_from_response(r)

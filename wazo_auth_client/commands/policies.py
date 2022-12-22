@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-# Copyright 2017-2021 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2017-2022 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from six.moves.urllib.parse import quote
@@ -13,21 +12,21 @@ class PoliciesCommand(RESTCommand):
     def add_access(self, policy_uuid, access):
         headers = self._get_headers()
         access = quote(access)
-        url = '{}/{}/acl/{}'.format(self.base_url, policy_uuid, access)
+        url = f'{self.base_url}/{policy_uuid}/acl/{access}'
         r = self.session.put(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def delete(self, policy_uuid):
         headers = self._get_headers()
-        url = '{}/{}'.format(self.base_url, policy_uuid)
+        url = f'{self.base_url}/{policy_uuid}'
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
     def edit(self, policy_uuid, name, **kwargs):
         headers = self._get_headers()
-        url = '{}/{}'.format(self.base_url, policy_uuid)
+        url = f'{self.base_url}/{policy_uuid}'
         kwargs['name'] = name
         r = self.session.put(url, headers=headers, json=kwargs)
         if r.status_code != 200:
@@ -36,7 +35,7 @@ class PoliciesCommand(RESTCommand):
 
     def get(self, policy_uuid):
         headers = self._get_headers()
-        url = '{}/{}'.format(self.base_url, policy_uuid)
+        url = f'{self.base_url}/{policy_uuid}'
         r = self.session.get(url, headers=headers)
         if r.status_code != 200:
             self.raise_from_response(r)
@@ -68,7 +67,7 @@ class PoliciesCommand(RESTCommand):
     def remove_access(self, policy_uuid, access):
         headers = self._get_headers()
         access = quote(access)
-        url = '{}/{}/acl/{}'.format(self.base_url, policy_uuid, access)
+        url = f'{self.base_url}/{policy_uuid}/acl/{access}'
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)

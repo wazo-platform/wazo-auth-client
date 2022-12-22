@@ -16,23 +16,23 @@ c = Client('localhost', username='alice', password='alice')
 token_data = c.token.new('wazo_user', expiration=3600, session_type='mobile')  # Creates a new token expiring in 3600 seconds
 
 token_data
-{u'expires_at': u'2015-06-04T09:49:30.449625',
- u'issued_at': u'2015-06-04T08:49:30.449607',
- u'token': u'3d95d849-94e5-fc72-4ff8-93b597e6acf6',
- u'auth_id': u'5cdff4a3-24a3-494f-8d32-9c8695e868f9',
- u'xivo_user_uuid': u'5cdff4a3-24a3-494f-8d32-9c8695e868f9',
- u'acl': [u'dird']}
+{'expires_at': '2015-06-04T09:49:30.449625',
+ 'issued_at': '2015-06-04T08:49:30.449607',
+ 'token': '3d95d849-94e5-fc72-4ff8-93b597e6acf6',
+ 'auth_id': '5cdff4a3-24a3-494f-8d32-9c8695e868f9',
+ 'xivo_user_uuid': '5cdff4a3-24a3-494f-8d32-9c8695e868f9',
+ 'acl': ['dird']}
 
 c.token.is_valid(token_data['token'])
 True
 
 c.token.get(token_data['token'])
-{u'expires_at': u'2015-06-04T09:49:30.449625',
- u'issued_at': u'2015-06-04T08:49:30.449607',
- u'token': u'3d95d849-94e5-fc72-4ff8-93b597e6acf6',
- u'auth_id': u'5cdff4a3-24a3-494f-8d32-9c8695e868f9',
- u'xivo_user_uuid': u'5cdff4a3-24a3-494f-8d32-9c8695e868f9',
- u'acl': [u'dird']}
+{'expires_at': '2015-06-04T09:49:30.449625',
+ 'issued_at': '2015-06-04T08:49:30.449607',
+ 'token': '3d95d849-94e5-fc72-4ff8-93b597e6acf6',
+ 'auth_id': '5cdff4a3-24a3-494f-8d32-9c8695e868f9',
+ 'xivo_user_uuid': '5cdff4a3-24a3-494f-8d32-9c8695e868f9',
+ 'acl': ['dird']}
 
 # ACL validation
 c.token.get(token_data['token'], required_acl='foobar')  # 403
@@ -42,25 +42,25 @@ False
 
 c.token.check_scopes(token_data['token'], ['dird', 'foobar'])
 {'scopes': {
-    u'dird': True,
-    u'foobar': False
+    'dird': True,
+    'foobar': False
 }}
 # Tenant validation
 c.token.get(token_data['token'], tenant='alice-tenant-uuid')
-{u'expires_at': u'2015-06-04T09:49:30.449625',
- u'issued_at': u'2015-06-04T08:49:30.449607',
- u'token': u'3d95d849-94e5-fc72-4ff8-93b597e6acf6',
- u'auth_id': u'5cdff4a3-24a3-494f-8d32-9c8695e868f9',
- u'xivo_user_uuid': u'5cdff4a3-24a3-494f-8d32-9c8695e868f9',
- u'acl': [u'dird']}
+{'expires_at': '2015-06-04T09:49:30.449625',
+ 'issued_at': '2015-06-04T08:49:30.449607',
+ 'token': '3d95d849-94e5-fc72-4ff8-93b597e6acf6',
+ 'auth_id': '5cdff4a3-24a3-494f-8d32-9c8695e868f9',
+ 'xivo_user_uuid': '5cdff4a3-24a3-494f-8d32-9c8695e868f9',
+ 'acl': ['dird']}
 
 c.token.is_valid(token_data['token'], tenant='alice-tenant-uuid')
 True
 
 c.token.check_scopes(token_data['token'], scopes=['dird', 'foobar'], tenant='alice-tenant-uuid')
 {'scopes': {
-    u'dird': True,
-    u'foobar': False
+    'dird': True,
+    'foobar': False
 }}
 
 # Token revocation
