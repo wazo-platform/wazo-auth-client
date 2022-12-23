@@ -1,7 +1,7 @@
 # Copyright 2017-2022 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from six.moves.urllib.parse import quote
+from urllib.parse import quote
 from wazo_lib_rest_client import RESTCommand
 
 
