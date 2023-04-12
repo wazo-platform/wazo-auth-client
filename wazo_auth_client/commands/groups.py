@@ -1,11 +1,10 @@
-# Copyright 2017-2022 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2017-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from wazo_lib_rest_client import RESTCommand
 
 
 class GroupsCommand(RESTCommand):
-
     resource = 'groups'
 
     def add_policy(self, group_uuid, policy_uuid, tenant_uuid=None):
