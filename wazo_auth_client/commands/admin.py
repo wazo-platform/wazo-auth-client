@@ -1,11 +1,10 @@
-# Copyright 2018-2022 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2018-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from wazo_lib_rest_client import RESTCommand
 
 
 class AdminCommand(RESTCommand):
-
     resource = 'admin'
 
     def update_user_emails(self, user_uuid, emails):
