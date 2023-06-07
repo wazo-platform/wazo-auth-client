@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-# Copyright 2015-2022 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2023 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-from setuptools import setup
-from setuptools import find_packages
+from setuptools import setup, find_packages
 
 setup(
     name='wazo_auth_client',
@@ -31,4 +30,9 @@ setup(
             'users = wazo_auth_client.commands.users:UsersCommand',
         ]
     },
+    install_requires=[
+        "wazo-lib-rest-client@git+https://github.com/wazo-platform/wazo-lib-rest-client.git@master",  # noqa: E501
+        "requests>=2.25.1",
+        "stevedore>=3.2.2",
+    ],
 )
