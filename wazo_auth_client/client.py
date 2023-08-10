@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import requests
+import requests.auth
 
 from wazo_lib_rest_client.client import BaseClient
 
@@ -15,8 +16,8 @@ class AuthClient(BaseClient):
         port=443,
         prefix='/api/auth',
         version='0.1',
-        username=None,
-        password=None,
+        username: str = None,
+        password: str = None,
         **kwargs
     ):
         kwargs.pop('key_file', None)
@@ -28,5 +29,7 @@ class AuthClient(BaseClient):
     def session(self):
         session = super().session()
         if self.username and self.password:
-            session.auth = requests.auth.HTTPBasicAuth(self.username, self.password)
+            session.auth = requests.auth.HTTPBasicAuth(
+                self.username.encode("utf-8"), self.password.encode("utf-8")
+            )
         return session
