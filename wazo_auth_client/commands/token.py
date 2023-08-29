@@ -2,6 +2,7 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 import requests
+import requests.auth
 
 from wazo_lib_rest_client import RESTCommand
 
@@ -21,8 +22,8 @@ class TokenCommand(RESTCommand):
         access_type=None,
         client_id=None,
         refresh_token=None,
-        username=None,
-        password=None,
+        username: str = None,
+        password: str = None,
         tenant_id=None,
         domain_name=None,
     ):
@@ -51,7 +52,9 @@ class TokenCommand(RESTCommand):
 
         auth = self.session.auth
         if username and password:
-            auth = requests.auth.HTTPBasicAuth(username, password)
+            auth = requests.auth.HTTPBasicAuth(
+                username.encode('utf-8'), password.encode('utf-8')
+            )
         r = self.session.post(self.base_url, headers=headers, json=data, auth=auth)
 
         if r.status_code != 200:
