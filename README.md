@@ -157,10 +157,6 @@ c.policies.get('<the policy uuid>')
 # delete a policy
 c.policies.delete('<the policy uuid>')
 
-# list policies of a tenant
-c.tenants.get_policies(<tenant_uuid>, search='policy', order='name', direction='asc', limit=10, offset=0)
-
-
 # Users
 
 # Creating a user
@@ -275,14 +271,6 @@ c.tenants.new(name='<new tenant name>')
 
 # Updating a tenant
 c.tenants.edit('<tenant_uuid>', name='<new tenant name>')
-
-# List users associated to a tenant
-
-c.tenants.get_users('<tenant_uuid>', limit=5, offset=10, order='username', direction='asc')
-
-# List tenants associated to a user
-
-c.users.get_tenants('<user_uuid>', limit=5, offset=10, order='name', direction='asc')
 
 # External authentification storage
 c.external.create('<auth_service>', '<user_uuid>', {'key': 'value'})
