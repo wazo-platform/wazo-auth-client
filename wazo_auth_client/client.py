@@ -3,7 +3,6 @@
 
 import requests
 import requests.auth
-
 from wazo_lib_rest_client.client import BaseClient
 
 
