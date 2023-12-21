@@ -3,7 +3,6 @@
 
 import requests
 import requests.auth
-
 from wazo_lib_rest_client import RESTCommand
 
 from ..exceptions import InvalidTokenException, MissingPermissionsTokenException
