@@ -52,9 +52,6 @@ class UsersCommand(RESTCommand):
     def get_policies(self, user_uuid, **kwargs):
         return self._get_relation('policies', user_uuid, **kwargs)
 
-    def get_tenants(self, user_uuid, **kwargs):
-        return self._get_relation('tenants', user_uuid, **kwargs)
-
     def get_sessions(self, user_uuid, **kwargs):
         return self._get_relation('sessions', user_uuid, **kwargs)
 

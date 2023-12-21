@@ -41,14 +41,6 @@ class PoliciesCommand(RESTCommand):
             self.raise_from_response(r)
         return r.json()
 
-    def get_tenants(self, policy_uuid, **kwargs):
-        headers = self._get_headers()
-        url = '/'.join([self.base_url, policy_uuid, 'tenants'])
-        r = self.session.get(url, headers=headers, params=kwargs)
-        if r.status_code != 200:
-            self.raise_from_response(r)
-        return r.json()
-
     def list(self, tenant_uuid=None, **kwargs):
         headers = self._get_headers(tenant_uuid=tenant_uuid)
         r = self.session.get(self.base_url, headers=headers, params=kwargs)
