@@ -135,7 +135,7 @@ class TokenCommand(RESTCommand):
             self.raise_from_response(r)
         return r.json()['data']
 
-    def list(self, user_uuid=None, **kwargs):
+    def list(self, user_uuid=None, **kwargs) -> list[dict]:
         if user_uuid is None:
             raise TypeError('user_uuid cannot be None')
 

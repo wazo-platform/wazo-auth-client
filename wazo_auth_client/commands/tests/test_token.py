@@ -16,7 +16,7 @@ from ..token import TokenCommand
 
 
 class TestTokenCommand(TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.client = Client('host', port=9497, prefix=None, https=False)
         # NOTE(clanglois): can use patch.object instead of manual monkey patching
         self.client.session = MagicMock()  # type: ignore

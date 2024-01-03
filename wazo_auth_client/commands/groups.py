@@ -97,5 +97,5 @@ class GroupsCommand(RESTCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def _relation_url(self, resource, group_uuid, resource_uuid):
+    def _relation_url(self, resource, group_uuid, resource_uuid) -> str:
         return '/'.join([self.base_url, group_uuid, resource, resource_uuid])

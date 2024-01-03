@@ -86,8 +86,8 @@ class ExternalAuthCommand(RESTCommand):
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def _build_url(self, auth_type, user_uuid):
+    def _build_url(self, auth_type, user_uuid) -> str:
         return '/'.join([self.base_url, user_uuid, 'external', auth_type])
 
-    def _build_config_url(self, auth_type):
+    def _build_config_url(self, auth_type) -> str:
         return '/'.join([self._client.url('external'), auth_type, 'config'])

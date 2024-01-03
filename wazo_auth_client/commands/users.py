@@ -127,7 +127,7 @@ class UsersCommand(RESTCommand):
             self.raise_from_response(r)
         return r.json()
 
-    def _get_relation(self, resource, user_uuid, tenant_uuid=None, **kwargs):
+    def _get_relation(self, resource, user_uuid, tenant_uuid=None, **kwargs) -> dict:
         headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = f'{self.base_url}/{user_uuid}/{resource}'
         r = self.session.get(url, headers=headers, params=kwargs)
