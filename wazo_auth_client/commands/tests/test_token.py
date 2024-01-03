@@ -53,7 +53,6 @@ class TestTokenCreate(TestTokenCommand):
         password = 'passŵôŗḑ'
         self.command.new(username=username, password=password)
 
-        # self.adapter.send.assert_called_once()
         request = self.session.send.mock_calls[0].args[0]
         assert 'Authorization' in request.headers, request.headers
         assert 'Basic' in request.headers['Authorization']
