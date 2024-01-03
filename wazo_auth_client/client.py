@@ -2,13 +2,47 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 from __future__ import annotations
 
+from typing import Any
+
 import requests
 import requests.auth
 from wazo_lib_rest_client.client import BaseClient
 
+from wazo_auth_client.commands import (
+    AdminCommand,
+    BackendsCommand,
+    ConfigCommand,
+    EmailsCommand,
+    ExternalAuthCommand,
+    GroupsCommand,
+    LDAPBackendConfigCommand,
+    PoliciesCommand,
+    RefreshTokenCommand,
+    SessionsCommand,
+    StatusCommand,
+    TenantsCommand,
+    TokenCommand,
+    UsersCommand,
+)
+
 
 class AuthClient(BaseClient):
     namespace = 'wazo_auth_client.commands'
+
+    admin: AdminCommand
+    backends: BackendsCommand
+    config: ConfigCommand
+    emails: EmailsCommand
+    external: ExternalAuthCommand
+    groups: GroupsCommand
+    ldap_config: LDAPBackendConfigCommand
+    policies: PoliciesCommand
+    refresh_tokens: RefreshTokenCommand
+    sessions: SessionsCommand
+    status: StatusCommand
+    tenants: TenantsCommand
+    token: TokenCommand
+    users: UsersCommand
 
     def __init__(
         self,
@@ -18,7 +52,7 @@ class AuthClient(BaseClient):
         version: str = '0.1',
         username: str | None = None,
         password: str | None = None,
-        **kwargs,
+        **kwargs: Any,
     ):
         kwargs.pop('key_file', None)
         kwargs.pop('master_tenant_uuid', None)
@@ -26,7 +60,7 @@ class AuthClient(BaseClient):
         self.username = username
         self.password = password
 
-    def session(self):
+    def session(self) -> requests.Session:
         session = super().session()
         if self.username and self.password:
             session.auth = requests.auth.HTTPBasicAuth(
