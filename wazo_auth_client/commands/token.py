@@ -8,6 +8,7 @@ import requests
 import requests.auth
 from wazo_lib_rest_client import RESTCommand
 
+from .._types import JSON, TokenDict
 from ..exceptions import InvalidTokenException, MissingPermissionsTokenException
 
 
@@ -28,7 +29,7 @@ class TokenCommand(RESTCommand):
         password: str | None = None,
         tenant_id: str | None = None,
         domain_name: str | None = None,
-    ) -> dict[str, Any]:
+    ) -> TokenDict:
         data: dict[str, Any] = {}
         if backend:
             data['backend'] = backend
@@ -64,19 +65,23 @@ class TokenCommand(RESTCommand):
 
         return r.json()['data']
 
-    def delete(self, user_uuid, client_id, tenant_uuid=None):
+    def delete(
+        self, user_uuid: str, client_id: str, tenant_uuid: str | None = None
+    ) -> None:
         headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = self._client.url('users', user_uuid, 'tokens', client_id)
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
 
-    def revoke(self, token):
+    def revoke(self, token: str) -> None:
         headers = self._get_headers()
         url = f'{self.base_url}/{token}'
         self.session.delete(url, headers=headers)
 
-    def check(self, token, required_acl=None, tenant=None):
+    def check(
+        self, token: str, required_acl: str | None = None, tenant: str | None = None
+    ) -> bool:
         params = {}
         if required_acl:
             params['scope'] = required_acl
@@ -92,9 +97,13 @@ class TokenCommand(RESTCommand):
             raise InvalidTokenException()
         elif r.status_code == 403:
             raise MissingPermissionsTokenException()
-        self.raise_from_response(r)
+        else:
+            self.raise_from_response(r)
+            return False
 
-    def is_valid(self, token, required_acl=None, tenant=None):
+    def is_valid(
+        self, token: str, required_acl: str | None = None, tenant: str | None = None
+    ) -> bool:
         params = {}
         if required_acl:
             params['scope'] = required_acl
@@ -106,10 +115,14 @@ class TokenCommand(RESTCommand):
         r = self.session.head(url, headers=headers, params=params)
         if r.status_code in (204, 403, 404):
             return r.status_code == 204
-        self.raise_from_response(r)
+        else:
+            self.raise_from_response(r)
+            return False
 
-    def check_scopes(self, token, scopes, tenant=None):
-        data = {'scopes': scopes}
+    def check_scopes(
+        self, token: str, scopes: list[str], tenant: str | None = None
+    ) -> JSON:
+        data: dict[str, Any] = {'scopes': scopes}
         if tenant:
             data['tenant_uuid'] = tenant
 
@@ -121,7 +134,9 @@ class TokenCommand(RESTCommand):
             self.raise_from_response(r)
         return r.json()
 
-    def get(self, token, required_acl=None, tenant=None):
+    def get(
+        self, token: str, required_acl: str | None = None, tenant: str | None = None
+    ) -> TokenDict:
         params = {}
         if required_acl:
             params['scope'] = required_acl
@@ -135,7 +150,7 @@ class TokenCommand(RESTCommand):
             self.raise_from_response(r)
         return r.json()['data']
 
-    def list(self, user_uuid=None, **kwargs) -> list[dict]:
+    def list(self, user_uuid: str | None = None, **kwargs: Any) -> list[TokenDict]:
         if user_uuid is None:
             raise TypeError('user_uuid cannot be None')
 
