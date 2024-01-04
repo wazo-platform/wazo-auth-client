@@ -1,5 +1,8 @@
-# Copyright 2015-2023 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2024 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
+from __future__ import annotations
+
+from typing import Any
 
 import requests
 import requests.auth
@@ -14,19 +17,19 @@ class TokenCommand(RESTCommand):
 
     def new(
         self,
-        backend=None,
-        expiration=None,
-        session_type=None,
-        user_agent=None,
-        access_type=None,
-        client_id=None,
-        refresh_token=None,
-        username: str = None,
-        password: str = None,
-        tenant_id=None,
-        domain_name=None,
-    ):
-        data = {}
+        backend: str | None = None,
+        expiration: int | None = None,
+        session_type: str | None = None,
+        user_agent: str | None = None,
+        access_type: str | None = None,
+        client_id: str | None = None,
+        refresh_token: str | None = None,
+        username: str | None = None,
+        password: str | None = None,
+        tenant_id: str | None = None,
+        domain_name: str | None = None,
+    ) -> dict[str, Any]:
+        data: dict[str, Any] = {}
         if backend:
             data['backend'] = backend
         if expiration:
