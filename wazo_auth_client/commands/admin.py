@@ -4,11 +4,13 @@ from __future__ import annotations
 
 from wazo_lib_rest_client import RESTCommand
 
+from .._types import JSON
+
 
 class AdminCommand(RESTCommand):
     resource = 'admin'
 
-    def update_user_emails(self, user_uuid, emails):
+    def update_user_emails(self, user_uuid: str, emails: list[JSON]) -> JSON:
         headers = self._get_headers()
         url = f'{self.base_url}/users/{user_uuid}/emails'
         body = {'emails': emails}
