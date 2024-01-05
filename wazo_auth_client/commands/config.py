@@ -4,11 +4,13 @@ from __future__ import annotations
 
 from wazo_lib_rest_client import RESTCommand
 
+from .._types import JSON
+
 
 class ConfigCommand(RESTCommand):
     resource = 'config'
 
-    def get(self):
+    def get(self) -> JSON:
         headers = self._get_headers()
         r = self.session.get(self.base_url, headers=headers)
 
@@ -17,7 +19,7 @@ class ConfigCommand(RESTCommand):
 
         return r.json()
 
-    def patch(self, config_patch):
+    def patch(self, config_patch: dict[str, JSON]) -> JSON:
         headers = self._get_headers()
         r = self.session.patch(self.base_url, headers=headers, json=config_patch)
 
