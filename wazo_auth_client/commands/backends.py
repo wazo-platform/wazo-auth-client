@@ -4,11 +4,13 @@ from __future__ import annotations
 
 from wazo_lib_rest_client import RESTCommand
 
+from .._types import JSON
+
 
 class BackendsCommand(RESTCommand):
     resource = 'backends'
 
-    def list(self):
+    def list(self) -> JSON:
         headers = self._get_headers()
         r = self.session.get(self.base_url, headers=headers)
 
