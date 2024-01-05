@@ -25,7 +25,7 @@ class TestTokenCommand(TestCase):
 
 
 class TestTokenList(TestTokenCommand):
-    def test_that_the_user_uuid_is_a_string(self):
+    def test_that_the_user_uuid_is_a_string(self) -> None:
         with raises(TypeError, match='user_uuid cannot be None'):
             self.command.list()
 
@@ -38,7 +38,7 @@ class TestTokenList(TestTokenCommand):
 
 
 class TestTokenCreate(TestTokenCommand):
-    def setUp(self):
+    def setUp(self) -> None:
         super().setUp()
         self.session = requests.Session()
         self.stack = ExitStack()
@@ -49,7 +49,7 @@ class TestTokenCreate(TestTokenCommand):
         self.stack.close()
         return super().tearDown()
 
-    def test_token_with_utf_8_username_and_password(self):
+    def test_token_with_utf_8_username_and_password(self) -> None:
         username = 'usernâmê'
         password = 'passŵôŗḑ'
         self.command.new(username=username, password=password)
