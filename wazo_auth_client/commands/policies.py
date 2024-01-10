@@ -7,7 +7,7 @@ from urllib.parse import quote
 
 from wazo_lib_rest_client import RESTCommand
 
-from .._types import JSON
+from ..types import JSON
 
 
 class PoliciesCommand(RESTCommand):
