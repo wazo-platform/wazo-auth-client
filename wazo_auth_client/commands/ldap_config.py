@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from wazo_lib_rest_client import RESTCommand
 
-from .._types import JSON
+from ..types import JSON
 
 
 class LDAPBackendConfigCommand(RESTCommand):

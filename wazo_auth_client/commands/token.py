@@ -8,8 +8,8 @@ import requests
 import requests.auth
 from wazo_lib_rest_client import RESTCommand
 
-from .._types import JSON, TokenDict
 from ..exceptions import InvalidTokenException, MissingPermissionsTokenException
+from ..types import JSON, TokenDict
 
 
 class TokenCommand(RESTCommand):
