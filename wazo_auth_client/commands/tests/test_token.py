@@ -1,5 +1,6 @@
 # Copyright 2019-2024 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
+from __future__ import annotations
 
 import base64
 from contextlib import ExitStack
@@ -15,7 +16,7 @@ from ..token import TokenCommand
 
 
 class TestTokenCommand(TestCase):
-    def setUp(self):
+    def setUp(self) -> None:
         self.client = Client('host', port=9497, prefix=None, https=False)
         # NOTE(clanglois): can use patch.object instead of manual monkey patching
         self.client.session = MagicMock()  # type: ignore
@@ -24,7 +25,7 @@ class TestTokenCommand(TestCase):
 
 
 class TestTokenList(TestTokenCommand):
-    def test_that_the_user_uuid_is_a_string(self):
+    def test_that_the_user_uuid_is_a_string(self) -> None:
         with raises(TypeError, match='user_uuid cannot be None'):
             self.command.list()
 
@@ -37,7 +38,7 @@ class TestTokenList(TestTokenCommand):
 
 
 class TestTokenCreate(TestTokenCommand):
-    def setUp(self):
+    def setUp(self) -> None:
         super().setUp()
         self.session = requests.Session()
         self.stack = ExitStack()
@@ -48,12 +49,11 @@ class TestTokenCreate(TestTokenCommand):
         self.stack.close()
         return super().tearDown()
 
-    def test_token_with_utf_8_username_and_password(self):
+    def test_token_with_utf_8_username_and_password(self) -> None:
         username = 'usernâmê'
         password = 'passŵôŗḑ'
         self.command.new(username=username, password=password)
 
-        # self.adapter.send.assert_called_once()
         request = self.session.send.mock_calls[0].args[0]
         assert 'Authorization' in request.headers, request.headers
         assert 'Basic' in request.headers['Authorization']

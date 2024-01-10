@@ -1,13 +1,16 @@
-# Copyright 2015-2023 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2024 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
+from __future__ import annotations
 
 from wazo_lib_rest_client import RESTCommand
+
+from .._types import JSON
 
 
 class BackendsCommand(RESTCommand):
     resource = 'backends'
 
-    def list(self):
+    def list(self) -> JSON:
         headers = self._get_headers()
         r = self.session.get(self.base_url, headers=headers)
 

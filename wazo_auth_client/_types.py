@@ -1,8 +1,10 @@
-# Copyright 2023 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2023-2024 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 from __future__ import annotations
 
-from typing import TypedDict
+from typing import TypedDict, Union
+
+from typing_extensions import TypeAlias
 
 
 class TokenMetadataDict(TypedDict):
@@ -31,3 +33,6 @@ class TokenDict(TypedDict):
     utc_issued_at: str
     user_agent: str
     remote_addr: str
+
+
+JSON: TypeAlias = Union[str, int, float, bool, None, list['JSON'], dict[str, 'JSON']]
