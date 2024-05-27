@@ -1,2 +1,6 @@
 *.egg-info
 *.pyc
+.env
+test.py
+.pre-commit-config.yaml
+

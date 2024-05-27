@@ -35,4 +35,9 @@ class TokenDict(TypedDict):
     remote_addr: str
 
 
+class SSODict(TypedDict):
+    location: str
+    saml_session_id: str
+
+
 JSON: TypeAlias = Union[str, int, float, bool, None, list['JSON'], dict[str, 'JSON']]
