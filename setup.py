@@ -15,6 +15,7 @@ setup(
     entry_points={
         'wazo_auth_client.commands': [
             'admin = wazo_auth_client.commands.admin:AdminCommand',
+            'authentication_methods = wazo_auth_client.commands.authentication_methods:Command',
             'backends = wazo_auth_client.commands.backends:BackendsCommand',
             'config = wazo_auth_client.commands.config:ConfigCommand',
             'emails = wazo_auth_client.commands.emails:EmailsCommand',
