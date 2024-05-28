@@ -15,12 +15,12 @@ setup(
     entry_points={
         'wazo_auth_client.commands': [
             'admin = wazo_auth_client.commands.admin:AdminCommand',
-            'authentication_methods = wazo_auth_client.commands.authentication_methods:Command',
             'backends = wazo_auth_client.commands.backends:BackendsCommand',
             'config = wazo_auth_client.commands.config:ConfigCommand',
             'emails = wazo_auth_client.commands.emails:EmailsCommand',
             'external = wazo_auth_client.commands.external:ExternalAuthCommand',
             'groups = wazo_auth_client.commands.groups:GroupsCommand',
+            'idp = wazo_auth_client.commands.idp:Command',
             'ldap_config = wazo_auth_client.commands.ldap_config:LDAPBackendConfigCommand',
             'policies = wazo_auth_client.commands.policies:PoliciesCommand',
             'refresh_tokens = wazo_auth_client.commands.refresh_tokens:RefreshTokenCommand',

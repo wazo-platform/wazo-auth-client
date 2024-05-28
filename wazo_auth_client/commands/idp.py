@@ -9,7 +9,7 @@ from ..types import JSON
 
 
 class Command(RESTCommand):
-    resource = 'authentication_methods'
+    resource = 'idp'
     _ro_headers = {'Accept': 'application/json'}
 
     def list(self) -> JSON:
