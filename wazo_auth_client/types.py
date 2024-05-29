@@ -35,7 +35,7 @@ class TokenDict(TypedDict):
     remote_addr: str
 
 
-class SSODict(TypedDict):
+class SSOResponseDict(TypedDict):
     location: str
     saml_session_id: str
 
