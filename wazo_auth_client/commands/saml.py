@@ -4,13 +4,13 @@ from __future__ import annotations
 
 from wazo_lib_rest_client import RESTCommand
 
-from ..types import SSODict
+from ..types import SSOResponseDict
 
 
 class SAMLCommand(RESTCommand):
     resource = 'saml'
 
-    def sso(self, domain: str, redirect_url: str) -> SSODict:
+    def sso(self, domain: str, redirect_url: str) -> SSOResponseDict:
         data = {}
         data['redirect_url'] = redirect_url
         data['domain'] = domain
@@ -21,10 +21,10 @@ class SAMLCommand(RESTCommand):
             self.raise_from_response(r)
         return r.json()
 
-    def acs(self, response: str, token: str) -> SSODict:
+    def acs(self, saml_response: str, relay_state: str) -> str:
         data = {}
-        data['response'] = response
-        data['token'] = token
+        data['RelayState'] = relay_state
+        data['SAMLResponse'] = saml_response
         headers = self._get_headers()
         url = f'{self.base_url}/acs'
         r = self.session.post(url, headers=headers, data=data, allow_redirects=False)
