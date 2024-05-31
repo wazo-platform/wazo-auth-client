@@ -18,6 +18,7 @@ from wazo_auth_client.commands import (
     LDAPBackendConfigCommand,
     PoliciesCommand,
     RefreshTokenCommand,
+    SAMLCommand,
     SessionsCommand,
     StatusCommand,
     TenantsCommand,
@@ -38,6 +39,7 @@ class AuthClient(BaseClient):
     ldap_config: LDAPBackendConfigCommand
     policies: PoliciesCommand
     refresh_tokens: RefreshTokenCommand
+    saml: SAMLCommand
     sessions: SessionsCommand
     status: StatusCommand
     tenants: TenantsCommand
