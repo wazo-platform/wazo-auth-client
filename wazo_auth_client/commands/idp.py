@@ -8,7 +8,7 @@ from wazo_lib_rest_client import RESTCommand
 from ..types import JSON
 
 
-class Command(RESTCommand):
+class IDPCommand(RESTCommand):
     resource = 'idp'
     _ro_headers = {'Accept': 'application/json'}
 

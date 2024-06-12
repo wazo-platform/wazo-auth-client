@@ -4,6 +4,7 @@ from .config import ConfigCommand
 from .emails import EmailsCommand
 from .external import ExternalAuthCommand
 from .groups import GroupsCommand
+from .idp import IDPCommand
 from .ldap_config import LDAPBackendConfigCommand
 from .policies import PoliciesCommand
 from .refresh_tokens import RefreshTokenCommand
@@ -21,6 +22,7 @@ __all__ = [
     'EmailsCommand',
     'ExternalAuthCommand',
     'GroupsCommand',
+    'IDPCommand',
     'LDAPBackendConfigCommand',
     'PoliciesCommand',
     'RefreshTokenCommand',
