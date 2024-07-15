@@ -66,3 +66,10 @@ class TenantsCommand(RESTCommand):
         r = self.session.delete(url, headers=headers)
         if r.status_code != 204:
             self.raise_from_response(r)
+
+    def get_domains(self, tenant_uuid: str) -> JSON:
+        url = f'{self.base_url}/{tenant_uuid}/domains'
+        r = self.session.get(url)
+        if r.status_code != 200:
+            self.raise_from_response(r)
+        return r.json()

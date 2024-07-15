@@ -26,7 +26,6 @@ class SAMLConfigCommand(RESTCommand):
         self, tenant_uuid: str | None = None, **saml_config: dict[str, Any]
     ) -> JSON:
         headers = self._get_headers(tenant_uuid=tenant_uuid)
-        headers['Content-Type'] = 'multipart/form-data'
         url = f'{self.base_url}/saml'
         r = self.session.post(url, headers=headers, **saml_config)
 
@@ -39,7 +38,6 @@ class SAMLConfigCommand(RESTCommand):
         self, tenant_uuid: str | None = None, **saml_config: dict[str, Any]
     ) -> None:
         headers = self._get_headers(tenant_uuid=tenant_uuid)
-        headers['Content-Type'] = 'multipart/form-data'
         url = f'{self.base_url}/saml'
         r = self.session.put(url, headers=headers, **saml_config)
 
@@ -64,10 +62,10 @@ class SAMLConfigCommand(RESTCommand):
         return r.json()
 
     def get_metadata(self, tenant_uuid: str) -> Any:
+        headers = self._get_headers(tenant_uuid=tenant_uuid)
         url = f'{self.base_url}/saml/metadata'
-        r = self.session.get(url)
+        r = self.session.get(url, headers=headers)
 
         if r.status_code != 200:
             self.raise_from_response(r)
-
-        return r.file
+        return r.content
