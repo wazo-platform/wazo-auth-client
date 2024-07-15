@@ -9,6 +9,7 @@ from .ldap_config import LDAPBackendConfigCommand
 from .policies import PoliciesCommand
 from .refresh_tokens import RefreshTokenCommand
 from .saml import SAMLCommand
+from .saml_config import SAMLConfigCommand
 from .sessions import SessionsCommand
 from .status import StatusCommand
 from .tenants import TenantsCommand
@@ -27,6 +28,7 @@ __all__ = [
     'PoliciesCommand',
     'RefreshTokenCommand',
     'SAMLCommand',
+    'SAMLConfigCommand',
     'SessionsCommand',
     'StatusCommand',
     'TenantsCommand',
