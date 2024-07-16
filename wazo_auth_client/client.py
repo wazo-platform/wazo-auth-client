@@ -19,6 +19,7 @@ from wazo_auth_client.commands import (
     PoliciesCommand,
     RefreshTokenCommand,
     SAMLCommand,
+    SAMLConfigCommand,
     SessionsCommand,
     StatusCommand,
     TenantsCommand,
@@ -40,6 +41,7 @@ class AuthClient(BaseClient):
     policies: PoliciesCommand
     refresh_tokens: RefreshTokenCommand
     saml: SAMLCommand
+    saml_config: SAMLConfigCommand
     sessions: SessionsCommand
     status: StatusCommand
     tenants: TenantsCommand

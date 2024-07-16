@@ -25,6 +25,7 @@ setup(
             'policies = wazo_auth_client.commands.policies:PoliciesCommand',
             'refresh_tokens = wazo_auth_client.commands.refresh_tokens:RefreshTokenCommand',
             'saml = wazo_auth_client.commands.saml:SAMLCommand',
+            'saml_config = wazo_auth_client.commands.saml_config:SAMLConfigCommand',
             'sessions = wazo_auth_client.commands.sessions:SessionsCommand',
             'status = wazo_auth_client.commands.status:StatusCommand',
             'tenants = wazo_auth_client.commands.tenants:TenantsCommand',
