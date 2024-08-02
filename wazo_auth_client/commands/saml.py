@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from wazo_lib_rest_client import RESTCommand
 
-from ..types import SSOResponseDict
+from ..types import ACSRedirectLocation, LogoutRedirectLocation, SSOResponseDict
 
 
 class SAMLCommand(RESTCommand):
@@ -21,7 +21,7 @@ class SAMLCommand(RESTCommand):
             self.raise_from_response(r)
         return r.json()
 
-    def acs(self, saml_response: str, relay_state: str) -> str:
+    def acs(self, saml_response: str, relay_state: str) -> ACSRedirectLocation:
         data = {}
         data['RelayState'] = relay_state
         data['SAMLResponse'] = saml_response
@@ -31,3 +31,11 @@ class SAMLCommand(RESTCommand):
         if r.status_code != 302:
             self.raise_from_response(r)
         return r.headers['Location']
+
+    def logout(self) -> LogoutRedirectLocation:
+        headers = self._get_headers()
+        url = f'{self.base_url}/logout'
+        r = self.session.get(url, headers=headers, allow_redirects=False)
+        if r.status_code != 200:
+            self.raise_from_response(r)
+        return r.json()['Location']

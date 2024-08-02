@@ -40,4 +40,7 @@ class SSOResponseDict(TypedDict):
     saml_session_id: str
 
 
+ACSRedirectLocation: TypeAlias = str
+LogoutRedirectLocation: TypeAlias = str
+
 JSON: TypeAlias = Union[str, int, float, bool, None, list['JSON'], dict[str, 'JSON']]
