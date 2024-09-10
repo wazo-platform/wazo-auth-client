@@ -1,4 +1,4 @@
 https://github.com/wazo-platform/wazo-lib-rest-client/archive/master.zip
 requests==2.25.1
-stevedore==3.2.2
+stevedore==4.0.2
 typing_extensions==4.4.0.0
