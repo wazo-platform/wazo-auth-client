@@ -3,9 +3,12 @@
 
 from __future__ import annotations
 
-from typing import TypedDict, Union
+from typing import TypedDict
 
+import xivo.typing_utils
 from typing_extensions import TypeAlias
+
+JSON = xivo.typing_utils.JSON
 
 
 class TokenMetadataDict(TypedDict):
@@ -43,5 +46,3 @@ class SSOResponseDict(TypedDict):
 
 ACSRedirectLocation: TypeAlias = str
 LogoutRedirectLocation: TypeAlias = str
-
-JSON: TypeAlias = Union[str, int, float, bool, None, list['JSON'], dict[str, 'JSON']]
