@@ -292,7 +292,7 @@ config_patch = {
     'path': '/debug',
     'value': True,
 }
-c.config.patch(config_patch)
+c.config.patch([config_patch])
 
 # To use a given certificate file
 
