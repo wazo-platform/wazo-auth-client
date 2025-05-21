@@ -1,12 +1,10 @@
-# Copyright 2015-2024 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2025 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from __future__ import annotations
 
 from typing import Any
 
-import requests
-import requests.auth
 from wazo_lib_rest_client.client import BaseClient
 
 from wazo_auth_client.commands import (
@@ -64,11 +62,3 @@ class AuthClient(BaseClient):
         super().__init__(host=host, port=port, prefix=prefix, version=version, **kwargs)
         self.username = username
         self.password = password
-
-    def session(self) -> requests.Session:
-        session = super().session()
-        if self.username and self.password:
-            session.auth = requests.auth.HTTPBasicAuth(
-                self.username.encode("utf-8"), self.password.encode("utf-8")
-            )
-        return session
