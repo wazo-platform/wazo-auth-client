@@ -1,4 +1,4 @@
-# Copyright 2019-2024 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2019-2025 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from __future__ import annotations
@@ -20,7 +20,7 @@ class TestTokenCommand(TestCase):
     def setUp(self) -> None:
         self.client = Client('host', port=9497, prefix=None, https=False)
         # NOTE(clanglois): can use patch.object instead of manual monkey patching
-        self.client.session = MagicMock()  # type: ignore
+        self.client.session = MagicMock()
         self.session = self.client.session.return_value
         self.command = TokenCommand(self.client)
 
@@ -44,7 +44,7 @@ class TestTokenCreate(TestTokenCommand):
         self.session = requests.Session()
         self.stack = ExitStack()
         self.stack.enter_context(patch.object(self.session, 'send'))
-        self.client.session = MagicMock(return_value=self.session)  # type: ignore
+        self.client.session = MagicMock(return_value=self.session)
 
     def tearDown(self) -> None:
         self.stack.close()

@@ -1,4 +1,4 @@
-# Copyright 2015-2024 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2025 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from __future__ import annotations
@@ -54,11 +54,9 @@ class TokenCommand(RESTCommand):
         if user_agent:
             headers['User-Agent'] = user_agent
 
-        auth = self.session.auth
-        if username and password:
-            auth = requests.auth.HTTPBasicAuth(
-                username.encode('utf-8'), password.encode('utf-8')
-            )
+        username_encoded = (username or self._client.username or '').encode('utf-8')
+        password_encoded = (password or self._client.password or '').encode('utf-8')
+        auth = requests.auth.HTTPBasicAuth(username_encoded, password_encoded)
         r = self.session.post(self.base_url, headers=headers, json=data, auth=auth)
 
         if r.status_code != 200:
