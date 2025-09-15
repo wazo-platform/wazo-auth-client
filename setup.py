@@ -34,7 +34,7 @@ setup(
         ]
     },
     install_requires=[
-        "wazo-lib-rest-client@https://github.com/wazo-platform/wazo-lib-rest-client/archive/master.zip",  # noqa: E501
+        "wazo-lib-rest-client@https://github.com/wazo-platform/wazo-lib-rest-client/archive/bookworm.zip",  # noqa: E501
         "requests>=2.25.1",
         "stevedore>=3.2.2",
         "typing_extensions>=3.10.0.0",
