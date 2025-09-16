@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright 2015-2024 The Wazo Authors  (see the AUTHORS file)
+# Copyright 2015-2025 The Wazo Authors  (see the AUTHORS file)
 # SPDX-License-Identifier: GPL-3.0-or-later
 
 from setuptools import find_packages, setup
@@ -35,8 +35,8 @@ setup(
     },
     install_requires=[
         "wazo-lib-rest-client@https://github.com/wazo-platform/wazo-lib-rest-client/archive/bookworm.zip",  # noqa: E501
-        "requests>=2.25.1",
-        "stevedore>=3.2.2",
-        "typing_extensions>=3.10.0.0",
+        "requests>=2.28.1",
+        "stevedore>=4.0.2",
+        "typing_extensions>=4.4.0",
     ],
 )
