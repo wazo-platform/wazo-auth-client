@@ -37,6 +37,5 @@ setup(
         "wazo-lib-rest-client@https://github.com/wazo-platform/wazo-lib-rest-client/archive/master.zip",  # noqa: E501
         "requests>=2.28.1",
         "stevedore>=4.0.2",
-        "typing_extensions>=4.4.0",
     ],
 )
