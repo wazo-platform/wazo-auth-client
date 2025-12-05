@@ -3,7 +3,7 @@
 
 from __future__ import annotations
 
-from typing import TypeAlias, TypedDict, Union
+from typing import TypeAlias, TypedDict
 
 
 class TokenMetadataDict(TypedDict):
@@ -42,4 +42,4 @@ class SSOResponseDict(TypedDict):
 ACSRedirectLocation: TypeAlias = str
 LogoutRedirectLocation: TypeAlias = str
 
-JSON: TypeAlias = Union[str, int, float, bool, None, list['JSON'], dict[str, 'JSON']]
+JSON: TypeAlias = str | int | float | bool | None | list['JSON'] | dict[str, 'JSON']
