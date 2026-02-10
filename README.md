@@ -272,6 +272,9 @@ c.tenants.new(name='<new tenant name>')
 # Updating a tenant
 c.tenants.edit('<tenant_uuid>', name='<new tenant name>')
 
+# Updating a tenant parent
+c.tenants.update_parent('<tenant_uuid>', '<new_parent_uuid>')
+
 # External authentification storage
 c.external.create('<auth_service>', '<user_uuid>', {'key': 'value'})
 c.external.update('<auth_service>', '<user_uuid>', {'key': 'value'})
